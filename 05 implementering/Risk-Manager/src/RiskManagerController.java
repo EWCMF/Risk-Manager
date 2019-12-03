@@ -15,6 +15,6 @@ public class RiskManagerController {
     }
 
     public void deleteRisk(Risk risk) {
-        deleteRisk(risk);
+        rt.deleteRisk(risk);
     }
 }
