@@ -7,15 +7,16 @@ public class RiskTable {
 
 
     public Risk addRisk() {
-        return Risk;
+        return null;
     }
 
     public void specifyRisk (Risk risk, String descripton, double probability, double consequence){
-
+        risk.specifyRisk(descripton, probability, consequence);
     }
 
     public void deleteRisk(Risk risk){
-
+        risk.delete();
+        risks.remove(risk);
     }
 
 }
