@@ -1,6 +1,6 @@
 public class RiskManagerController {
     RiskTable rt = new RiskTable;
-    StrategyTable st = new StrategyTable;
+    StrategyTable st = new StrategyTable();
 
     public Risk addRisk() {
         return Risk;
