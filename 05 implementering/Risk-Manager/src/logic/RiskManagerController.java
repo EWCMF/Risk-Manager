@@ -1,3 +1,5 @@
+package logic;
+
 public class RiskManagerController {
     RiskTable rt = new RiskTable();
     StrategyTable st = new StrategyTable();

@@ -1,3 +1,5 @@
+package logic;
+
 public class Risk {
     String description;
     double probability;

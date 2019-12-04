@@ -11,26 +11,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="510.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskManagerController">
+<VBox prefHeight="510.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logic.RiskManagerController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Create">
           <items>
-            <MenuItem mnemonicParsing="false" text="Create Risk" />
-            <MenuItem mnemonicParsing="false" text="Create Strategy" />
+            <MenuItem mnemonicParsing="false" text="Create logic.Risk" />
+            <MenuItem mnemonicParsing="false" text="Create logic.Strategy" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" text="Edit Risk" />
-            <MenuItem mnemonicParsing="false" text="Edit Strategy" />
+            <MenuItem mnemonicParsing="false" text="Edit logic.Risk" />
+            <MenuItem mnemonicParsing="false" text="Edit logic.Strategy" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Delete">
           <items>
-            <MenuItem mnemonicParsing="false" text="Delete Risk" />
-                  <MenuItem mnemonicParsing="false" text="Delete Strategy" />
+            <MenuItem mnemonicParsing="false" text="Delete logic.Risk" />
+                  <MenuItem mnemonicParsing="false" text="Delete logic.Strategy" />
           </items>
         </Menu>
       </menus>
