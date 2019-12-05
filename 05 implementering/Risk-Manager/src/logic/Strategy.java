@@ -1,6 +1,6 @@
 package logic;
 
-public class Strategy {
+class Strategy {
     String Description;
     String category;
 }

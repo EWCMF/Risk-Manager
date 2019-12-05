@@ -1,6 +1,6 @@
 package logic;
 
-public class Risk {
+class Risk {
     String description;
     double probability;
     double consequence;
@@ -22,6 +22,7 @@ public class Risk {
             this.probability = probability;
             this.consequence = consequence;
             calculateExposure();
+            RiskManagerController.addToDB(this);
         }
 
     }

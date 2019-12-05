@@ -2,7 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 
-public class StrategyTable {
+class StrategyTable {
 
     ArrayList<Strategy> strategy = new ArrayList<Strategy>();
 
