@@ -18,14 +18,8 @@ import static ui.Controller.user;
 
 public class DBFacade {
 
-
     public static boolean conneced = false;
-
-
-
-
     public static Statement stmt;
-
 
 
 

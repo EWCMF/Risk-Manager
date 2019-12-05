@@ -100,10 +100,27 @@ public class Controller {
         }
     }
 
+    public void insertRisk(String description, Double probability, Double consequence, Double exposure, Boolean strategy) {
+        String query = "insert into risk (description, probability, consequence, exposure) values ('"+description+"','"+probability+"','"+consequence+"','"+exposure+"')";
+
+        executeQuery(query);
+    }
+
+    public void executeQuery(String query) {
+        Connection conn = getConnection();
+        Statement st;
+        try {
+            st = conn.createStatement();
+            st.executeUpdate(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public Connection getConnection() {
         Connection conn;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk-manager?serverTimezone=UTC","root","Fredrik10");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk-manager?serverTimezone=UTC",user,pass);
             return conn;
         }
         catch (Exception e){

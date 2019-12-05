@@ -45,8 +45,12 @@ public class RiskManagerController {
         Double exposure = risk.exposure;
         Boolean strategy = false;
 
-        //SQL here
+        Controller controller = new Controller();
+        controller.insertRisk(description, probability, consequence, exposure, strategy);
     }
+
+
+
 
 }
 
