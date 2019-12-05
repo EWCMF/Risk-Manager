@@ -14,7 +14,7 @@ class Risk {
     }
 
     public void specifyRisk(String description, double probability, double consequence) {
-        if (probability < 0 || probability > 100 || consequence < 0 || consequence > 20) {
+        if (probability < 0 || probability > 100 || consequence < 0 || consequence > 100) {
             //Invalid risk
         }
         else {
@@ -22,12 +22,11 @@ class Risk {
             this.probability = probability;
             this.consequence = consequence;
             calculateExposure();
-            RiskManagerController.addRiskToDB(this);
         }
 
     }
     private void calculateExposure() {
-        exposure = (probability / 100) * (consequence / 20);
+        exposure = probability * consequence / 100;
     }
 
     public void delete() {

@@ -17,13 +17,15 @@
                 <TextArea fx:id="strategyDescription" prefHeight="200.0" prefWidth="200.0" text="Skriv beskrivelse her" />
             </children>
         </GridPane>
-        <Label layoutX="31.0" layoutY="37.0" text="Strategy">
+        <Label layoutX="15.0" layoutY="14.0" text="Strategy">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
         <Button fx:id="createStrategyButton" layoutX="262.0" layoutY="359.0" mnemonicParsing="false" onAction="#specifyStrategy" prefHeight="27.0" prefWidth="77.0" text="Create" />
-      <TextField fx:id="strategyCategory" layoutX="90.0" layoutY="99.0" />
-      <Label layoutX="31.0" layoutY="103.0" prefHeight="18.0" prefWidth="59.0" text="Kategori" />
+      <TextField fx:id="strategyCategory" layoutX="90.0" layoutY="102.0" />
+      <Label layoutX="31.0" layoutY="106.0" prefHeight="18.0" prefWidth="59.0" text="Kategori" />
+      <Label layoutX="31.0" layoutY="63.0" text="Navn" />
+      <TextField fx:id="strategyName" layoutX="90.0" layoutY="59.0" />
     </children>
 </AnchorPane>

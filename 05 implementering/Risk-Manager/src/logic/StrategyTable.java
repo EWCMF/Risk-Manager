@@ -19,8 +19,8 @@ class StrategyTable {
         strategies.remove(strategies.size() - 1);
     }
 
-    public void specifyRisk (Strategy strategy, String description, String category){
-        strategy.specifyStrategy(description, category);
+    public void specifyRisk (Strategy strategy, String name, String description, String category){
+        strategy.specifyStrategy(name, description, category);
     }
 
 

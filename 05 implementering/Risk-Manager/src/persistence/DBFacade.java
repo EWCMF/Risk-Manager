@@ -2,8 +2,10 @@ package persistence;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import ui.LoginWindowController;
 import ui.RiskUI;
+import ui.StrategyUI;
 
 import java.sql.*;
 
@@ -32,14 +34,24 @@ public class DBFacade {
 
     }
 
+    public void deleteRisk(String selected) {
+        String query = "DELETE FROM risk WHERE description like '"+selected+"'";
+        executeQuery(query);
+    }
+
+    public void deleteStrategy(String selected) {
+        String query = "DELETE FROM strategy WHERE name like '"+selected+"'";
+        executeQuery(query);
+    }
+
     public void insertRisk(String description, Double probability, Double consequence, Double exposure, Boolean strategy) {
         String query = "insert into risk (description, probability, consequence, exposure) values ('"+description+"','"+probability+"','"+consequence+"','"+exposure+"')";
 
         executeQuery(query);
     }
 
-    public void insertStrategy(String description, String category) {
-        String query = "insert into strategy (description, category) values ('"+description+"','"+category+"')";
+    public void insertStrategy(String name, String description, String category) {
+        String query = "insert into strategy (name, description, category) values ('"+name+"','"+description+"','"+category+"')";
 
         executeQuery(query);
     }
@@ -86,5 +98,26 @@ public class DBFacade {
             e.printStackTrace();
         }
         return riskList;
+    }
+
+    public ObservableList<StrategyUI> getStrategyList(){
+        ObservableList<StrategyUI> strategyList = FXCollections.observableArrayList();
+        Connection connection = getConnection();
+        String query = "SELECT * FROM strategy";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = connection.createStatement();
+            rs = st.executeQuery(query);
+            StrategyUI strategies;
+            while(rs.next()) {
+                strategies = new StrategyUI(rs.getString("name"),rs.getString("description"),rs.getString("category"));
+                strategyList.add(strategies);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strategyList;
     }
 }

@@ -39,7 +39,7 @@ public class LoginWindowController {
 
     public void changeToMainWindow() throws IOException {
         Parent root = FXMLLoader.load(MainWindowController.class.getResource("MainWindow.fxml"));
-        ui.Main.window.setTitle("Risk Manager");
+        ui.Main.window.setTitle("Risk Manager - Risks");
         ui.Main.window.setScene(new Scene(root, 720, 510));
         ui.Main.window.show();
     }

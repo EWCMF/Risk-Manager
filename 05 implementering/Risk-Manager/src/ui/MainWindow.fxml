@@ -11,19 +11,16 @@
         <Menu mnemonicParsing="false" text="Create">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#createRiskWindow" text="Create Risk" />
-            <MenuItem mnemonicParsing="false" onAction="#createStrategyWindow" text="Create Strategy" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" text="Edit Risk" />
-            <MenuItem mnemonicParsing="false" text="Edit Strategy" />
+            <MenuItem mnemonicParsing="false" text="Edit Selected Risk" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Delete">
           <items>
-            <MenuItem mnemonicParsing="false" text="Delete Risk" />
-                  <MenuItem mnemonicParsing="false" text="Delete Strategy" />
+            <MenuItem mnemonicParsing="false" onAction="#deleteSelectedRisk" text="Delete Selected Risk" />
           </items>
         </Menu>
       </menus>
@@ -32,7 +29,7 @@
          <children>
             <TableView fx:id="riskTable" layoutY="52.0" prefHeight="154.0" prefWidth="720.0">
               <columns>
-                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="175.99999696016312" text="Risiko">
+                <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="175.99999696016312" text="Beskrivelse">
                     <cellValueFactory>
                         <PropertyValueFactory property="description" />
                     </cellValueFactory>
@@ -68,6 +65,7 @@
             <TextArea layoutX="7.0" layoutY="262.0" prefHeight="206.0" prefWidth="700.0" />
             <Label layoutX="13.0" layoutY="236.0" prefHeight="18.0" prefWidth="86.0" text="Strategi" />
             <Button layoutX="662.0" layoutY="22.0" mnemonicParsing="false" onAction="#showRisks" text="Update" />
+            <Button layoutX="580.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeToStrategyWindow" text="Strategies" />
          </children>
     </AnchorPane>
   </children>

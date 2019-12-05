@@ -1,6 +1,5 @@
 package ui;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,21 +16,25 @@ import logic.RiskManagerController;
 import persistence.DBFacade;
 
 import java.io.IOException;
-import java.sql.*;
 
 public class MainWindowController {
+    private static boolean initialized;
 
     @FXML private TableView<RiskUI> riskTable;
 
-    @FXML private TableColumn<RiskUI, String> descriptionColumn;
-    @FXML private TableColumn<RiskUI, Double> probabilityColumn;
-    @FXML private TableColumn<RiskUI, Double> consequenceColumn;
-    @FXML private TableColumn<RiskUI, Double> exposureColumn;
-    @FXML private TableColumn<RiskUI, Boolean> strategyColumn;
 
     @FXML
     public void initialize() {
         showRisks();
+        if (!initialized) {
+        for (int i = 0; i < riskTable.getItems().size(); i++) {
+            RiskManagerController.initialRisks(
+                    riskTable.getItems().get(i).description,
+                    riskTable.getItems().get(i).probability,
+                    riskTable.getItems().get(i).consequence);
+            }
+            initialized = true;
+        }
     }
 
     @FXML
@@ -53,31 +56,24 @@ public class MainWindowController {
         logic.RiskManagerController.createRisk();
     }
 
-    @FXML
-    private void createStrategyWindow(ActionEvent event) throws IOException {
-
-        Parent cRisk = FXMLLoader.load(getClass().getResource("CreateStrategyWindow.fxml"));
-        Scene scene = new Scene(cRisk);
-        Stage appStage = new Stage();
-        appStage.setScene(scene);
-        appStage.setTitle("Create Strategy");
-        appStage.initOwner(Main.window);
-        appStage.initModality(Modality.WINDOW_MODAL);
-        appStage.show();
-        appStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                RiskManagerController.deleteLastAddedStrategy();
-            }
-        });
-        logic.RiskManagerController.createStrategy();
-    }
-
-
-
     public void showRisks() {
             DBFacade dbFacade = new DBFacade();
             ObservableList<RiskUI> risks = dbFacade.getRisksList();
 
             riskTable.setItems(risks);
+    }
+
+    public void changeToStrategyWindow() throws IOException {
+        Parent root = FXMLLoader.load(MainWindowController.class.getResource("StrategyWindow.fxml"));
+        ui.Main.window.setTitle("Risk Manager - Strategies");
+        ui.Main.window.setScene(new Scene(root, 720, 510));
+        ui.Main.window.show();
+    }
+
+    @FXML
+    public void deleteSelectedRisk() {
+        DBFacade dbFacade = new DBFacade();
+        dbFacade.deleteRisk(riskTable.getSelectionModel().getSelectedItem().description);
+        showRisks();
     }
 }

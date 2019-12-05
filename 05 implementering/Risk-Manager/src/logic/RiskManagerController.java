@@ -1,11 +1,22 @@
 package logic;
 
 import persistence.DBFacade;
-import ui.MainWindowController;
 
 public class RiskManagerController {
+
     static RiskTable rt = new RiskTable();
     static StrategyTable st = new StrategyTable();
+
+    public static void initialRisks(String description, double probability, double consequence) {
+                createRisk();
+                specifyRisk(getLastAddedRisk(), description, probability, consequence);
+    }
+
+    public static void initialStrategies(String name, String description, String category) {
+            createStrategy();
+            specifyStrategy(getLastAddedStrategy(), name, description, category);
+
+    }
 
     public static void createRisk() {
         rt.createRisk();
@@ -19,8 +30,8 @@ public class RiskManagerController {
         st.createStrategy();
     }
 
-    public static void specifyStrategy(Strategy strategy, String description, String category) {
-        st.specifyRisk(strategy, description, category);
+    public static void specifyStrategy(Strategy strategy, String name, String description, String category) {
+        st.specifyRisk(strategy, name, description, category);
     }
 
     public void linkStrategy(Risk risk, Strategy strategy) {
@@ -44,7 +55,7 @@ public class RiskManagerController {
     }
 
     public static Strategy getLastAddedStrategy() {
-        return st.strategies.get(rt.risks.size() - 1);
+        return st.strategies.get(st.strategies.size() - 1);
     }
 
     public static void addRiskToDB(Risk risk) {
@@ -59,11 +70,12 @@ public class RiskManagerController {
     }
 
     public static void addStrategyToDB(Strategy strategy) {
+        String name = strategy.name;
         String description = strategy.description;
         String category = strategy.category;
 
         DBFacade dbFacade = new DBFacade();
-        dbFacade.insertStrategy(description, category);
+        dbFacade.insertStrategy(name, description, category);
 
     }
 

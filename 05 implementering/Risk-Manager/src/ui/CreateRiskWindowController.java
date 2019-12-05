@@ -25,6 +25,7 @@ public class CreateRiskWindowController {
                     Double.parseDouble(riskProbability.getText()),
                     Double.parseDouble(riskConsequence.getText()));
             Stage stage = (Stage) createRiskButton.getScene().getWindow();
+            RiskManagerController.addRiskToDB(RiskManagerController.getLastAddedRisk());
             stage.close();
         } catch (InputMismatchException e) {
             System.out.println("Wrong input");

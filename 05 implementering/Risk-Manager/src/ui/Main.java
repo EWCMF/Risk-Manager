@@ -14,7 +14,7 @@ public class Main extends Application {
         window = primaryStage;
 
         Parent root = FXMLLoader.load(getClass().getResource("LoginWindow.fxml"));
-        window.setTitle("Risk Manager");
+        window.setTitle("Risk Manager - Login");
         window.setScene(new Scene(root, 600, 400));
         window.show();
     }
