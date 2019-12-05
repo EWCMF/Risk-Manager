@@ -40,6 +40,7 @@ public class Controller {
 
     @FXML private TableView<RiskUI> riskTable;
     @FXML private Button createRiskButton;
+    @FXML private Button updateButton;
 
     @FXML private TableColumn<RiskUI, String> descriptionColumn;
     @FXML private TableColumn<RiskUI, Double> probabilityColumn;
@@ -85,7 +86,7 @@ public class Controller {
     }
 
     @FXML
-    private void specifyRiskWindow(ActionEvent event) throws Exception {
+    private void specifyRiskWindow(ActionEvent event) {
         try {
             RiskManagerController.specifyRisk(
                     RiskManagerController.getLastAdded(),
