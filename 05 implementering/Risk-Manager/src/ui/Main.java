@@ -7,13 +7,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    public static Stage window;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-        primaryStage.setTitle("Risk Manager");
-        primaryStage.setScene(new Scene(root, 720, 510));
-        primaryStage.show();
+        window = primaryStage;
+
+        Parent root = FXMLLoader.load(getClass().getResource("LoginWindow.fxml"));
+        window.setTitle("Risk Manager");
+        window.setScene(new Scene(root, 720, 510));
+        window.show();
     }
 
 

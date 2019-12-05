@@ -19,5 +19,13 @@ public class Controller {
         appStage.setScene(scene);
         appStage.setTitle("Create Risk");
         appStage.show();
+
+    }
+
+    public static void changeToMainWindow() throws IOException {
+        Parent root = FXMLLoader.load(Controller.class.getResource("Main.fxml"));
+        ui.Main.window.setTitle("Risk Manager");
+        ui.Main.window.setScene(new Scene(root, 720, 510));
+        ui.Main.window.show();
     }
 }
