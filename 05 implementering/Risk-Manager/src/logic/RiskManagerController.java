@@ -2,6 +2,14 @@ package logic;
 
 import ui.Controller;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Button;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class RiskManagerController {
     public static RiskTable rt = new RiskTable();
     StrategyTable st = new StrategyTable();
@@ -41,3 +49,4 @@ public class RiskManagerController {
     }
 
 }
+
