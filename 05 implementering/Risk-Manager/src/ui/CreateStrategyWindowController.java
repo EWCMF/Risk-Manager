@@ -12,7 +12,7 @@ public class CreateStrategyWindowController {
     @FXML private Button createStrategyButton;
 
     @FXML private javafx.scene.control.TextArea strategyDescription;
-    @FXML private javafx.scene.control.TextArea strategyCategory;
+    @FXML private javafx.scene.control.TextField strategyCategory;
 
     @FXML
     private void specifyStrategy() {

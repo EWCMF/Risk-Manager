@@ -1,5 +1,6 @@
 package logic;
 
+import persistence.DBFacade;
 import ui.MainWindowController;
 
 public class RiskManagerController {
@@ -53,15 +54,16 @@ public class RiskManagerController {
         Double exposure = risk.exposure;
         Boolean strategy = false;
 
-        MainWindowController mainWindowController = new MainWindowController();
-        mainWindowController.insertRisk(description, probability, consequence, exposure, strategy);
+        DBFacade dbFacade = new DBFacade();
+        dbFacade.insertRisk(description, probability, consequence, exposure, strategy);
     }
 
     public static void addStrategyToDB(Strategy strategy) {
         String description = strategy.description;
         String category = strategy.category;
 
-        MainWindowController mainWindowController = new MainWindowController();
+        DBFacade dbFacade = new DBFacade();
+        dbFacade.insertStrategy(description, category);
 
     }
 
