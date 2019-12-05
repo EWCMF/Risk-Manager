@@ -103,7 +103,7 @@ public class Controller {
     public Connection getConnection() {
         Connection conn;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk-manager?serverTimezone=UTC","root","Fredrik10");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk-manager?serverTimezone=UTC","","");
             return conn;
         }
         catch (Exception e){
