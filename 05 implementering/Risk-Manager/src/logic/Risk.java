@@ -27,7 +27,7 @@ class Risk {
 
     }
     private void calculateExposure() {
-        exposure = probability * (consequence / 20);
+        exposure = (probability / 100) * (consequence / 20);
     }
 
     public void delete() {
