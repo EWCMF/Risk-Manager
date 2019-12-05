@@ -15,7 +15,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" text="Edit Selected Risk" />
+            <MenuItem mnemonicParsing="false" onAction="#editRiskWindow" text="Edit Selected Risk" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Delete">

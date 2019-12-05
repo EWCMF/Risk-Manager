@@ -2,8 +2,8 @@ package persistence;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import ui.LoginWindowController;
+import ui.MainWindowController;
 import ui.RiskUI;
 import ui.StrategyUI;
 
@@ -32,6 +32,22 @@ public class DBFacade {
             System.out.println("Kan ikke logge ind.");
         }
 
+    }
+
+    public void updateRisk(String description, Double probability, Double consequence, Double exposure, Integer strategy, String last) {
+        String query = "UPDATE risk set description = '"+description+"', " +
+                "probability = '"+probability+"', " +
+                "consequence = '"+consequence+"', " +
+                "exposure = '"+exposure+"'," +
+                "strategy = '"+strategy+"' where description = '"+last+"'";
+        executeQuery(query);
+    }
+
+    public void updateStrategy(String name, String category, String description, String last) {
+        String query = "UPDATE strategy set name = '"+name+"', " +
+                "category = '"+category+"', " +
+                "description = '"+description+"' where name = '"+last+"'";
+        executeQuery(query);
     }
 
     public void deleteRisk(String selected) {
@@ -91,7 +107,7 @@ public class DBFacade {
             rs = st.executeQuery(query);
             RiskUI risks;
             while(rs.next()) {
-                risks = new RiskUI(rs.getString("description"),rs.getDouble("probability"),rs.getDouble("consequence"),rs.getDouble("exposure"), false);
+                risks = new RiskUI(MainWindowController.countRisks,rs.getString("description"),rs.getDouble("probability"),rs.getDouble("consequence"),rs.getDouble("exposure"), false);
                 riskList.add(risks);
             }
         } catch (Exception e) {

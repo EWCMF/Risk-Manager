@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,6 +18,7 @@ import java.io.IOException;
 
 public class MainWindowController {
     private static boolean initialized;
+    public static int countRisks;
 
     @FXML private TableView<RiskUI> riskTable;
 
@@ -56,6 +56,23 @@ public class MainWindowController {
         logic.RiskManagerController.createRisk();
     }
 
+    @FXML
+    private void editRiskWindow(ActionEvent event) throws IOException {
+        EditRiskWindowController.currentlyEditedDescription = riskTable.getSelectionModel().getSelectedItem().description;
+        EditRiskWindowController.newConsequence = riskTable.getSelectionModel().getSelectedItem().consequence;
+        EditRiskWindowController.newProbability = riskTable.getSelectionModel().getSelectedItem().probability;
+        EditRiskWindowController.newDescription = riskTable.getSelectionModel().getSelectedItem().description;
+
+        Parent cRisk = FXMLLoader.load(getClass().getResource("editRiskWindow.fxml"));
+        Scene scene = new Scene(cRisk);
+        Stage appStage = new Stage();
+        appStage.setScene(scene);
+        appStage.setTitle("Edit Risk");
+        appStage.initOwner(Main.window);
+        appStage.initModality(Modality.WINDOW_MODAL);
+        appStage.show();
+    }
+
     public void showRisks() {
             DBFacade dbFacade = new DBFacade();
             ObservableList<RiskUI> risks = dbFacade.getRisksList();
@@ -72,8 +89,11 @@ public class MainWindowController {
 
     @FXML
     public void deleteSelectedRisk() {
-        DBFacade dbFacade = new DBFacade();
-        dbFacade.deleteRisk(riskTable.getSelectionModel().getSelectedItem().description);
-        showRisks();
+        if (riskTable.getSelectionModel().getSelectedItem() != null) {
+            DBFacade dbFacade = new DBFacade();
+            dbFacade.deleteRisk(riskTable.getSelectionModel().getSelectedItem().description);
+            showRisks();
+
+        }
     }
 }

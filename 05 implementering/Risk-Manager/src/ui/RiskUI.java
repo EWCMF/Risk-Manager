@@ -1,6 +1,7 @@
 package ui;
 
 public class RiskUI {
+    Integer id;
     String description;
     Double probability;
     Double consequence;
@@ -15,7 +16,8 @@ public class RiskUI {
         strategy = false;
     }
 
-    public RiskUI(String description, Double probability, Double consequence, Double exposure, Boolean strategy) {
+    public RiskUI(Integer id, String description, Double probability, Double consequence, Double exposure, Boolean strategy) {
+        this.id = id;
         this.description = description;
         this.probability = probability;
         this.consequence = consequence;

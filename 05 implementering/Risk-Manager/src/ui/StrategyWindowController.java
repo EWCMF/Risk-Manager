@@ -55,6 +55,30 @@ public class StrategyWindowController {
         logic.RiskManagerController.createStrategy();
     }
 
+    @FXML
+    private void editStrategyWindow(ActionEvent event) throws IOException {
+        EditStrategyWindowController.currentlyEditedName = strategyTable.getSelectionModel().getSelectedItem().name;
+        EditStrategyWindowController.newName = strategyTable.getSelectionModel().getSelectedItem().name;
+        EditStrategyWindowController.newCategory = strategyTable.getSelectionModel().getSelectedItem().category;
+        EditStrategyWindowController.newDescription = strategyTable.getSelectionModel().getSelectedItem().description;
+
+        description.setText("");
+        Parent cRisk = FXMLLoader.load(getClass().getResource("EditStrategyWindow.fxml"));
+        Scene scene = new Scene(cRisk);
+        Stage appStage = new Stage();
+        appStage.setScene(scene);
+        appStage.setTitle("Edit Strategy");
+        appStage.initOwner(Main.window);
+        appStage.initModality(Modality.WINDOW_MODAL);
+        appStage.show();
+        appStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                RiskManagerController.deleteLastAddedStrategy();
+            }
+        });
+        logic.RiskManagerController.createStrategy();
+    }
+
 
 
     public void showStrategies() {
@@ -79,8 +103,11 @@ public class StrategyWindowController {
 
     @FXML
     public void deleteSelectedStrategy() {
-        DBFacade dbFacade = new DBFacade();
-        dbFacade.deleteStrategy(strategyTable.getSelectionModel().getSelectedItem().name);
-        showStrategies();
+        if (strategyTable.getSelectionModel().getSelectedItem() != null) {
+            DBFacade dbFacade = new DBFacade();
+            dbFacade.deleteStrategy(strategyTable.getSelectionModel().getSelectedItem().name);
+            showStrategies();
+            description.setText("");
+        }
     }
 }
