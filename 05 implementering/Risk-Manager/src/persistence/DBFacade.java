@@ -13,39 +13,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static ui.Controller.pass;
+import static ui.Controller.user;
+
 public class DBFacade {
 
-    private static String user;
-    private static String pass;
 
-    private static boolean conneced = false;
-
-    @FXML
-    private PasswordField User = new PasswordField();
-
-    @FXML
-    private PasswordField Pass = new PasswordField();
-
-    @FXML
-    private Button Confirm = new Button();
+    public static boolean conneced = false;
 
 
-    private Statement stmt;
-
-    @FXML
-    private void saveUser() throws SQLException, IOException {
-        user = User.getText();
-        pass = Pass.getText();
-
-        initializeDB();
-
-        if (conneced) {
-           ui.Controller.changeToMainWindow();
-        }
-    }
 
 
-    private void initializeDB() throws SQLException {
+    public static Statement stmt;
+
+
+
+
+    public static void initializeDB() throws SQLException {
 
         String password = pass;
         String username = user;
