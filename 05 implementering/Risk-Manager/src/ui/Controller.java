@@ -41,7 +41,12 @@ public class Controller {
         appStage.setScene(scene);
         appStage.setTitle("Create Risk");
         appStage.show();
-
+        appStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                logic.RiskManagerController.deleteLastAdded();
+            }
+        });
+        logic.RiskManagerController.createRisk();
     }
 
     public static void changeToMainWindow() throws IOException {
@@ -49,12 +54,6 @@ public class Controller {
         ui.Main.window.setTitle("Risk Manager");
         ui.Main.window.setScene(new Scene(root, 720, 510));
         ui.Main.window.show();
-        appStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                logic.RiskManagerController.deleteLastAdded();
-            }
-        });
-        logic.RiskManagerController.createRisk();
     }
 
     @FXML
