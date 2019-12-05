@@ -22,7 +22,7 @@ class Risk {
             this.probability = probability;
             this.consequence = consequence;
             calculateExposure();
-            RiskManagerController.addToDB(this);
+            RiskManagerController.addRiskToDB(this);
         }
 
     }

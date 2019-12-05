@@ -1,18 +1,10 @@
 package logic;
 
-import ui.Controller;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.Button;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import ui.MainWindowController;
 
 public class RiskManagerController {
-    public static RiskTable rt = new RiskTable();
-    StrategyTable st = new StrategyTable();
+    static RiskTable rt = new RiskTable();
+    static StrategyTable st = new StrategyTable();
 
     public static void createRisk() {
         rt.createRisk();
@@ -20,6 +12,14 @@ public class RiskManagerController {
 
     public static void specifyRisk(Risk risk, String description, double probability, double consequence) {
         rt.specifyRisk(risk, description, probability, consequence);
+    }
+
+    public static void createStrategy() {
+        st.createStrategy();
+    }
+
+    public static void specifyStrategy(Strategy strategy, String description, String category) {
+        st.specifyRisk(strategy, description, category);
     }
 
     public void linkStrategy(Risk risk, Strategy strategy) {
@@ -30,23 +30,39 @@ public class RiskManagerController {
         rt.deleteRisk(risk);
     }
 
-    public static void deleteLastAdded() {
+    public static void deleteLastAddedRisk() {
         rt.deleteLastAdded();
     }
 
-    public static Risk getLastAdded() {
+    public static void deleteLastAddedStrategy() {
+        st.deleteLastAdded();
+    }
+
+    public static Risk getLastAddedRisk() {
         return rt.risks.get(rt.risks.size() - 1);
     }
 
-    public static void addToDB(Risk risk) {
+    public static Strategy getLastAddedStrategy() {
+        return st.strategies.get(rt.risks.size() - 1);
+    }
+
+    public static void addRiskToDB(Risk risk) {
         String description = risk.description;
         Double probability = risk.probability;
         Double consequence = risk.consequence;
         Double exposure = risk.exposure;
         Boolean strategy = false;
 
-        Controller controller = new Controller();
-        controller.insertRisk(description, probability, consequence, exposure, strategy);
+        MainWindowController mainWindowController = new MainWindowController();
+        mainWindowController.insertRisk(description, probability, consequence, exposure, strategy);
+    }
+
+    public static void addStrategyToDB(Strategy strategy) {
+        String description = strategy.description;
+        String category = strategy.category;
+
+        MainWindowController mainWindowController = new MainWindowController();
+
     }
 
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 class RiskTable {
 
-    ArrayList<Risk> risks = new ArrayList<Risk>();
+    ArrayList<Risk> risks = new ArrayList<>();
 
 
     public void createRisk() {
@@ -12,8 +12,8 @@ class RiskTable {
         risks.add(risk);
     }
 
-    public void specifyRisk (Risk risk, String descripton, double probability, double consequence){
-        risk.specifyRisk(descripton, probability, consequence);
+    public void specifyRisk (Risk risk, String description, double probability, double consequence){
+        risk.specifyRisk(description, probability, consequence);
     }
 
     public void deleteRisk(Risk risk){

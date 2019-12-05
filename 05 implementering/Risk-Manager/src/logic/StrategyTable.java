@@ -4,10 +4,23 @@ import java.util.ArrayList;
 
 class StrategyTable {
 
-    ArrayList<Strategy> strategy = new ArrayList<Strategy>();
+    ArrayList<Strategy> strategies = new ArrayList<>();
 
-    public static Strategy linkStrategy(Strategy strategy) {
+    void createStrategy() {
+        Strategy strategy = new Strategy();
+        strategies.add(strategy);
+    }
+
+    static Strategy linkStrategy(Strategy strategy) {
         return null;
+    }
+
+    public void deleteLastAdded() {
+        strategies.remove(strategies.size() - 1);
+    }
+
+    public void specifyRisk (Strategy strategy, String description, String category){
+        strategy.specifyStrategy(description, category);
     }
 
 
