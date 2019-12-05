@@ -7,8 +7,10 @@ public class RiskTable {
     ArrayList<Risk> risks = new ArrayList<Risk>();
 
 
-    public Risk addRisk() {
-        return null;
+    public Risk createRisk() {
+        Risk risk = new Risk();
+        risks.add(risk);
+        return risk;
     }
 
     public void specifyRisk (Risk risk, String descripton, double probability, double consequence){
@@ -20,4 +22,7 @@ public class RiskTable {
         risks.remove(risk);
     }
 
+    public void linkStrategy(Risk risk, Strategy strategy) {
+        risk.linkStrategy(strategy);
+    }
 }
