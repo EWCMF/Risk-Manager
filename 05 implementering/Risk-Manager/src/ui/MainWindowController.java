@@ -1,8 +1,6 @@
 package ui;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import logic.RiskManagerController;
 import persistence.DBFacade;
 
@@ -38,7 +35,7 @@ public class MainWindowController {
     }
 
     @FXML
-    private void createRiskWindow(ActionEvent event) throws IOException {
+    private void createRiskWindow() throws IOException {
 
         Parent cRisk = FXMLLoader.load(getClass().getResource("CreateRiskWindow.fxml"));
         Scene scene = new Scene(cRisk);
@@ -48,29 +45,27 @@ public class MainWindowController {
         appStage.initOwner(Main.window);
         appStage.initModality(Modality.WINDOW_MODAL);
         appStage.show();
-        appStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                RiskManagerController.deleteLastAddedRisk();
-            }
-        });
+        appStage.setOnCloseRequest(we -> RiskManagerController.deleteLastAddedRisk());
         logic.RiskManagerController.createRisk();
     }
 
     @FXML
-    private void editRiskWindow(ActionEvent event) throws IOException {
-        EditRiskWindowController.currentlyEditedDescription = riskTable.getSelectionModel().getSelectedItem().description;
-        EditRiskWindowController.newConsequence = riskTable.getSelectionModel().getSelectedItem().consequence;
-        EditRiskWindowController.newProbability = riskTable.getSelectionModel().getSelectedItem().probability;
-        EditRiskWindowController.newDescription = riskTable.getSelectionModel().getSelectedItem().description;
+    private void editRiskWindow() throws IOException {
+        if (riskTable.getSelectionModel().getSelectedItem() != null) {
+            EditRiskWindowController.currentlyEditedDescription = riskTable.getSelectionModel().getSelectedItem().description;
+            EditRiskWindowController.newConsequence = riskTable.getSelectionModel().getSelectedItem().consequence;
+            EditRiskWindowController.newProbability = riskTable.getSelectionModel().getSelectedItem().probability;
+            EditRiskWindowController.newDescription = riskTable.getSelectionModel().getSelectedItem().description;
 
-        Parent cRisk = FXMLLoader.load(getClass().getResource("editRiskWindow.fxml"));
-        Scene scene = new Scene(cRisk);
-        Stage appStage = new Stage();
-        appStage.setScene(scene);
-        appStage.setTitle("Edit Risk");
-        appStage.initOwner(Main.window);
-        appStage.initModality(Modality.WINDOW_MODAL);
-        appStage.show();
+            Parent cRisk = FXMLLoader.load(getClass().getResource("editRiskWindow.fxml"));
+            Scene scene = new Scene(cRisk);
+            Stage appStage = new Stage();
+            appStage.setScene(scene);
+            appStage.setTitle("Edit Risk");
+            appStage.initOwner(Main.window);
+            appStage.initModality(Modality.WINDOW_MODAL);
+            appStage.show();
+        }
     }
 
     public void showRisks() {

@@ -1,8 +1,6 @@
 package ui;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +9,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import logic.RiskManagerController;
 import persistence.DBFacade;
 
@@ -37,7 +34,7 @@ public class StrategyWindowController {
     }
 
     @FXML
-    private void createStrategyWindow(ActionEvent event) throws IOException {
+    private void createStrategyWindow() throws IOException {
 
         Parent cRisk = FXMLLoader.load(getClass().getResource("CreateStrategyWindow.fxml"));
         Scene scene = new Scene(cRisk);
@@ -47,36 +44,30 @@ public class StrategyWindowController {
         appStage.initOwner(Main.window);
         appStage.initModality(Modality.WINDOW_MODAL);
         appStage.show();
-        appStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                RiskManagerController.deleteLastAddedStrategy();
-            }
-        });
+        appStage.setOnCloseRequest(we -> RiskManagerController.deleteLastAddedStrategy());
         logic.RiskManagerController.createStrategy();
     }
 
     @FXML
-    private void editStrategyWindow(ActionEvent event) throws IOException {
-        EditStrategyWindowController.currentlyEditedName = strategyTable.getSelectionModel().getSelectedItem().name;
-        EditStrategyWindowController.newName = strategyTable.getSelectionModel().getSelectedItem().name;
-        EditStrategyWindowController.newCategory = strategyTable.getSelectionModel().getSelectedItem().category;
-        EditStrategyWindowController.newDescription = strategyTable.getSelectionModel().getSelectedItem().description;
+    private void editStrategyWindow() throws IOException {
+        if (strategyTable.getSelectionModel().getSelectedItem() != null) {
+            EditStrategyWindowController.currentlyEditedName = strategyTable.getSelectionModel().getSelectedItem().name;
+            EditStrategyWindowController.newName = strategyTable.getSelectionModel().getSelectedItem().name;
+            EditStrategyWindowController.newCategory = strategyTable.getSelectionModel().getSelectedItem().category;
+            EditStrategyWindowController.newDescription = strategyTable.getSelectionModel().getSelectedItem().description;
 
-        description.setText("");
-        Parent cRisk = FXMLLoader.load(getClass().getResource("EditStrategyWindow.fxml"));
-        Scene scene = new Scene(cRisk);
-        Stage appStage = new Stage();
-        appStage.setScene(scene);
-        appStage.setTitle("Edit Strategy");
-        appStage.initOwner(Main.window);
-        appStage.initModality(Modality.WINDOW_MODAL);
-        appStage.show();
-        appStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                RiskManagerController.deleteLastAddedStrategy();
-            }
-        });
-        logic.RiskManagerController.createStrategy();
+            description.setText("");
+            Parent cRisk = FXMLLoader.load(getClass().getResource("EditStrategyWindow.fxml"));
+            Scene scene = new Scene(cRisk);
+            Stage appStage = new Stage();
+            appStage.setScene(scene);
+            appStage.setTitle("Edit Strategy");
+            appStage.initOwner(Main.window);
+            appStage.initModality(Modality.WINDOW_MODAL);
+            appStage.show();
+            appStage.setOnCloseRequest(we -> RiskManagerController.deleteLastAddedStrategy());
+            logic.RiskManagerController.createStrategy();
+        }
     }
 
 
