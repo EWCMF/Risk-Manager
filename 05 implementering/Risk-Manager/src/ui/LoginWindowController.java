@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import persistence.DBFacade;
 
 import java.io.IOException;
@@ -36,7 +38,12 @@ public class LoginWindowController {
             changeToMainWindow();
         }
     }
-
+    public void handle(KeyEvent keyEvent) throws SQLException, IOException {
+        if(keyEvent.getCode() == KeyCode.ENTER)
+        {
+            saveUser();
+        }
+    }
     public void changeToMainWindow() throws IOException {
         Parent root = FXMLLoader.load(MainWindowController.class.getResource("MainWindow.fxml"));
         ui.Main.window.setTitle("Risk Manager - Risks");
