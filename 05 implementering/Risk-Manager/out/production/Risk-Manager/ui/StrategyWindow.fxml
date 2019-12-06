@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="510.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.StrategyWindowController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Create">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#createStrategyWindow" text="Create Strategy" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#editStrategyWindow" text="Edit Selected Strategy" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Delete">
+          <items>
+                  <MenuItem mnemonicParsing="false" onAction="#deleteSelectedStrategy" text="Delete Selected Strategy" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="546.0" prefWidth="960.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="strategyTable" layoutY="36.0" onMouseClicked="#showDescription" prefHeight="110.0" prefWidth="482.0">
+              <columns>
+                <TableColumn fx:id="nameColumn" minWidth="0.0" prefWidth="175.99999696016312" text="Navn">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="categoryColumn" prefWidth="215.1999969482422" text="Category">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="category" />
+                    </cellValueFactory>
+                </TableColumn>
+              </columns>
+              <items>
+              </items>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Label layoutX="13.0" layoutY="13.0" prefHeight="18.0" prefWidth="86.0" text="Strategy" />
+            <TextArea fx:id="description" layoutX="7.0" layoutY="207.0" prefHeight="261.0" prefWidth="700.0" />
+            <Label layoutX="13.0" layoutY="182.0" prefHeight="18.0" prefWidth="86.0" text="Beskrivelse" />
+            <Button layoutX="619.0" layoutY="23.0" mnemonicParsing="false" onAction="#showStrategies" text="Update Table" />
+            <Button layoutX="569.0" layoutY="23.0" mnemonicParsing="false" onAction="#changeToMainWindow" text="Risks" />
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>
