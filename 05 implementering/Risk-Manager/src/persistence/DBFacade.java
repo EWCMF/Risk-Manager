@@ -2,10 +2,7 @@ package persistence;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import ui.LoginWindowController;
-import ui.MainWindowController;
-import ui.RiskUI;
-import ui.StrategyUI;
+import ui.*;
 
 import java.sql.*;
 
@@ -34,12 +31,16 @@ public class DBFacade {
 
     }
 
-    public void updateRisk(String description, Double probability, Double consequence, Double exposure, Integer strategy, String last) {
+    public void linkStrategy(Integer strategyID, String last) {
+        String query = "UPDATE risk set strategy = '"+strategyID+"' where description = '"+last+"'";
+        executeQuery(query);
+    }
+
+    public void updateRisk(String description, Double probability, Double consequence, Double exposure, String last) {
         String query = "UPDATE risk set description = '"+description+"', " +
                 "probability = '"+probability+"', " +
                 "consequence = '"+consequence+"', " +
-                "exposure = '"+exposure+"'," +
-                "strategy = '"+strategy+"' where description = '"+last+"'";
+                "exposure = '"+exposure+"' where description = '"+last+"'";
         executeQuery(query);
     }
 
@@ -67,7 +68,7 @@ public class DBFacade {
     }
 
     public void insertStrategy(String name, String description, String category) {
-        String query = "insert into strategy (name, description, category) values ('"+name+"','"+description+"','"+category+"')";
+        String query = "insert into strategy (name, description, category, strategyID) values ('"+name+"','"+description+"','"+category+"','"+ StrategyWindowController.numStrategies+"')";
 
         executeQuery(query);
     }
@@ -103,11 +104,17 @@ public class DBFacade {
         ResultSet rs;
 
         try {
+            boolean hasStrategy;
             st = connection.createStatement();
             rs = st.executeQuery(query);
             RiskUI risks;
+
             while(rs.next()) {
-                risks = new RiskUI(MainWindowController.countRisks,rs.getString("description"),rs.getDouble("probability"),rs.getDouble("consequence"),rs.getDouble("exposure"), false);
+                if (rs.getInt("strategy") != 0)
+                    hasStrategy = true;
+                else
+                    hasStrategy = false;
+                risks = new RiskUI(MainWindowController.numRisks,rs.getString("description"),rs.getDouble("probability"),rs.getDouble("consequence"),rs.getDouble("exposure"), hasStrategy, rs.getInt("strategy"));
                 riskList.add(risks);
             }
         } catch (Exception e) {
@@ -128,12 +135,32 @@ public class DBFacade {
             rs = st.executeQuery(query);
             StrategyUI strategies;
             while(rs.next()) {
-                strategies = new StrategyUI(rs.getString("name"),rs.getString("description"),rs.getString("category"));
+                strategies = new StrategyUI(rs.getString("name"),rs.getString("description"),rs.getString("category"),rs.getInt("strategyID"));
                 strategyList.add(strategies);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return strategyList;
+    }
+
+    public String getSelectedRiskStrategy(Integer selected){
+        Connection connection = getConnection();
+        String query = "SELECT description FROM strategy where strategyID ="+selected;
+        Statement st;
+        ResultSet rs;
+        String description = "";
+        try {
+            st = connection.createStatement();
+            rs = st.executeQuery(query);
+            while(rs.next()) {
+
+                description = rs.getString("description");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return description;
     }
 }

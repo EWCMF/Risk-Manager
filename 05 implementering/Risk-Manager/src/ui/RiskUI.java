@@ -7,6 +7,7 @@ public class RiskUI {
     Double consequence;
     Double exposure;
     Boolean strategy;
+    Integer connectedStrategy;
 
     public RiskUI() {
         description = "";
@@ -16,13 +17,14 @@ public class RiskUI {
         strategy = false;
     }
 
-    public RiskUI(Integer id, String description, Double probability, Double consequence, Double exposure, Boolean strategy) {
+    public RiskUI(Integer id, String description, Double probability, Double consequence, Double exposure, Boolean strategy, Integer connectedStrategy) {
         this.id = id;
         this.description = description;
         this.probability = probability;
         this.consequence = consequence;
         this.exposure = exposure;
         this.strategy = strategy;
+        this.connectedStrategy = connectedStrategy;
     }
 
 

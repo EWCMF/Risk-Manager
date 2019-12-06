@@ -15,7 +15,8 @@ import persistence.DBFacade;
 import java.io.IOException;
 
 public class StrategyWindowController {
-    private static boolean initialized;
+    static boolean initialized;
+    public static int numStrategies;
 
     @FXML private TableView<StrategyUI> strategyTable;
     @FXML private TextArea description;
@@ -89,7 +90,9 @@ public class StrategyWindowController {
 
     @FXML
     public void showDescription() {
-        description.setText(strategyTable.getSelectionModel().getSelectedItem().description);
+        if (strategyTable.getSelectionModel().getSelectedItem() != null) {
+            description.setText(strategyTable.getSelectionModel().getSelectedItem().description);
+        }
     }
 
     @FXML

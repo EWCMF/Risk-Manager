@@ -27,7 +27,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="546.0" prefWidth="960.0" VBox.vgrow="ALWAYS">
          <children>
-            <TableView fx:id="riskTable" layoutY="52.0" prefHeight="154.0" prefWidth="720.0">
+            <TableView fx:id="riskTable" layoutY="52.0" onMouseClicked="#showSelectedRiskStrategy" prefHeight="154.0" prefWidth="720.0">
               <columns>
                 <TableColumn fx:id="descriptionColumn" minWidth="0.0" prefWidth="175.99999696016312" text="Beskrivelse">
                     <cellValueFactory>
@@ -62,7 +62,7 @@
                </columnResizePolicy>
             </TableView>
             <Label layoutX="14.0" layoutY="34.0" prefHeight="18.0" prefWidth="86.0" text="Risiko" />
-            <TextArea layoutX="7.0" layoutY="262.0" prefHeight="206.0" prefWidth="700.0" />
+            <TextArea fx:id="strategyArea" layoutX="7.0" layoutY="262.0" prefHeight="206.0" prefWidth="700.0" />
             <Label layoutX="13.0" layoutY="236.0" prefHeight="18.0" prefWidth="86.0" text="Strategi" />
             <Button layoutX="662.0" layoutY="22.0" mnemonicParsing="false" onAction="#showRisks" text="Update" />
             <Button layoutX="580.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeToStrategyWindow" text="Strategies" />

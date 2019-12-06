@@ -23,7 +23,7 @@
             <Text layoutX="75.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Risiko" />
             <Text layoutX="75.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sandsynlighed" wrappingWidth="77.0390625" />
             <Text layoutX="75.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Konsekvens" wrappingWidth="62.021484375" />
-            <Button layoutX="169.0" layoutY="389.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="113.0" text="Link Strategy" />
+            <Button layoutX="169.0" layoutY="389.0" mnemonicParsing="false" onAction="#linkStrategyWindow" prefHeight="50.0" prefWidth="113.0" text="Link Strategy" />
          </children></Pane>
    </children>
 </GridPane>

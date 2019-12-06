@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.RiskManagerController;
@@ -15,10 +16,10 @@ import java.io.IOException;
 
 public class MainWindowController {
     private static boolean initialized;
-    public static int countRisks;
+    public static int numRisks;
 
     @FXML private TableView<RiskUI> riskTable;
-
+    @FXML private TextArea strategyArea;
 
     @FXML
     public void initialize() {
@@ -89,6 +90,13 @@ public class MainWindowController {
             dbFacade.deleteRisk(riskTable.getSelectionModel().getSelectedItem().description);
             showRisks();
 
+        }
+    }
+
+    public void showSelectedRiskStrategy() {
+        if (riskTable.getSelectionModel().getSelectedItem() != null) {
+            DBFacade dbFacade = new DBFacade();
+            strategyArea.setText(dbFacade.getSelectedRiskStrategy(riskTable.getSelectionModel().getSelectedItem().connectedStrategy));
         }
     }
 }

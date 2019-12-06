@@ -2,6 +2,7 @@ package logic;
 
 import persistence.DBFacade;
 import ui.MainWindowController;
+import ui.StrategyWindowController;
 
 public class RiskManagerController {
 
@@ -21,7 +22,7 @@ public class RiskManagerController {
 
     public static void createRisk() {
         rt.createRisk();
-        MainWindowController.countRisks++;
+        MainWindowController.numRisks++;
     }
 
     public static void specifyRisk(Risk risk, String description, double probability, double consequence) {
@@ -30,6 +31,7 @@ public class RiskManagerController {
 
     public static void createStrategy() {
         st.createStrategy();
+        StrategyWindowController.numStrategies++;
     }
 
     public static void specifyStrategy(Strategy strategy, String name, String description, String category) {
