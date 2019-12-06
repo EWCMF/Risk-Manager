@@ -89,7 +89,7 @@ public class MainWindowController {
             DBFacade dbFacade = new DBFacade();
             dbFacade.deleteRisk(riskTable.getSelectionModel().getSelectedItem().description);
             showRisks();
-
+            strategyArea.setText("");
         }
     }
 
