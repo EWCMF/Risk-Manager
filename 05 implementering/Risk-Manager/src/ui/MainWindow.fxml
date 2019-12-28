@@ -51,7 +51,7 @@
               </TableColumn>
                   <TableColumn fx:id="strategyColumn" minWidth="0.0" prefWidth="96.79998779296875" text="Har strategi">
                       <cellValueFactory>
-                          <PropertyValueFactory property="strategy" />
+                          <PropertyValueFactory property="hasStrategy" />
                       </cellValueFactory>
                   </TableColumn>
               </columns>

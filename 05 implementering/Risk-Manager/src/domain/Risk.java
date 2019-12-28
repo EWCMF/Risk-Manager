@@ -6,6 +6,7 @@ public class Risk {
     private double probability;
     private double consequence;
     private double exposure;
+    private boolean hasStrategy;
     private Strategy strategy = new Strategy();
 
     public Risk(int lastID) {
@@ -13,16 +14,18 @@ public class Risk {
         description = "";
         probability = 0.0;
         consequence = 0.0;
+        hasStrategy = false;
         strategy = null;
     }
 
-    public Risk(int id, String description, double probability, double consequence, double exposure, Strategy strategy) {
+    public Risk(int id, String description, double probability, double consequence, double exposure, Strategy strategy, boolean hasStrategy) {
         this.id = id;
         this.description = description;
         this.probability = probability;
         this.consequence = consequence;
         this.exposure = exposure;
         this.strategy = strategy;
+        this.hasStrategy = hasStrategy;
     }
 
     public void specifyRisk(String description, double probability, double consequence) {
@@ -91,5 +94,13 @@ public class Risk {
 
     public void setStrategy(Strategy strategy) {
         this.strategy = strategy;
+    }
+
+    public boolean getHasStrategy() {
+        return hasStrategy;
+    }
+
+    public void setHasStrategy(boolean hasStrategy) {
+        this.hasStrategy = hasStrategy;
     }
 }

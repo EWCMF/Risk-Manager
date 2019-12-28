@@ -106,16 +106,21 @@ public class DBFacade {
         ResultSet rs;
 
         try {
+            boolean hasStrategy;
             st = connection.createStatement();
             rs = st.executeQuery(query);
-            Risk risks = null;
+            Risk risks;
             Strategy strategy = new Strategy();
 
             while(rs.next()) {
-                if (rs.getInt("strategy") != 0) {
+                if (rs.getInt("strategy") > 0) {
                     strategy = getLinkedStrategy(rs.getInt("strategy"));
+                    hasStrategy = true;
                 }
-                risks = new Risk(rs.getInt("id"),rs.getString("description"),rs.getDouble("probability"),rs.getDouble("consequence"),rs.getDouble("exposure"), strategy);
+                else {
+                    hasStrategy = false;
+                }
+                risks = new Risk(rs.getInt("id"),rs.getString("description"),rs.getDouble("probability"),rs.getDouble("consequence"),rs.getDouble("exposure"), strategy, hasStrategy);
                 riskList.add(risks);
             }
         } catch (Exception e) {
