@@ -1,6 +1,8 @@
 package logic;
 
 import domain.Strategy;
+import javafx.collections.ObservableList;
+import persistence.DBFacade;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,4 @@ class StrategyTable {
         Strategy strategy = new Strategy();
         strategy.specifyStrategy(id, name, description, category);
     }
-
-
 }

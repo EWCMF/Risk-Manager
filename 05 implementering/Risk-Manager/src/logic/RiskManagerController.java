@@ -2,6 +2,7 @@ package logic;
 
 import domain.Risk;
 import domain.Strategy;
+import javafx.collections.ObservableList;
 import persistence.DBFacade;
 import ui.MainWindowController;
 import ui.StrategyWindowController;
@@ -85,8 +86,15 @@ public class RiskManagerController {
 
     }
 
+    public ObservableList<Risk> getRisks() {
+        DBFacade dbFacade = new DBFacade();
+        return dbFacade.getRisksList();
+    }
 
+    public ObservableList<Strategy> getStrategies() {
+        DBFacade dbFacade = new DBFacade();
 
-
+        return dbFacade.getStrategyList();
+    }
 }
 

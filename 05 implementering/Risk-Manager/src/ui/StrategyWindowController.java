@@ -75,10 +75,10 @@ public class StrategyWindowController {
 
 
     public void showStrategies() {
-        DBFacade dbFacade = new DBFacade();
-        ObservableList<Strategy> risks = dbFacade.getStrategyList();
+        RiskManagerController riskManagerController = new RiskManagerController();
+        ObservableList<Strategy> strategies = riskManagerController.getStrategies();
 
-        strategyTable.setItems(risks);
+        strategyTable.setItems(strategies);
     }
 
     @FXML

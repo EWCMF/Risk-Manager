@@ -71,8 +71,8 @@ public class MainWindowController {
     }
 
     public void showRisks() {
-            DBFacade dbFacade = new DBFacade();
-            ObservableList<Risk> risks = dbFacade.getRisksList();
+            RiskManagerController riskManagerController = new RiskManagerController();
+            ObservableList<Risk> risks = riskManagerController.getRisks();
 
             riskTable.setItems(risks);
     }
