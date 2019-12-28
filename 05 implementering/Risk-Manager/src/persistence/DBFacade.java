@@ -1,5 +1,7 @@
 package persistence;
 
+import domain.Risk;
+import domain.Strategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ui.*;
@@ -96,25 +98,24 @@ public class DBFacade {
         }
     }
 
-    public ObservableList<RiskUI> getRisksList(){
-        ObservableList<RiskUI> riskList = FXCollections.observableArrayList();
+    public ObservableList<Risk> getRisksList(){
+        ObservableList<Risk> riskList = FXCollections.observableArrayList();
         Connection connection = getConnection();
         String query = "SELECT * FROM risk";
         Statement st;
         ResultSet rs;
 
         try {
-            boolean hasStrategy;
             st = connection.createStatement();
             rs = st.executeQuery(query);
-            RiskUI risks;
+            Risk risks = null;
+            Strategy strategy = new Strategy();
 
             while(rs.next()) {
-                if (rs.getInt("strategy") != 0)
-                    hasStrategy = true;
-                else
-                    hasStrategy = false;
-                risks = new RiskUI(MainWindowController.numRisks,rs.getString("description"),rs.getDouble("probability"),rs.getDouble("consequence"),rs.getDouble("exposure"), hasStrategy, rs.getInt("strategy"));
+                if (rs.getInt("strategy") != 0) {
+                    strategy = getLinkedStrategy(rs.getInt("strategy"));
+                }
+                risks = new Risk(rs.getInt("id"),rs.getString("description"),rs.getDouble("probability"),rs.getDouble("consequence"),rs.getDouble("exposure"), strategy);
                 riskList.add(risks);
             }
         } catch (Exception e) {
@@ -123,8 +124,8 @@ public class DBFacade {
         return riskList;
     }
 
-    public ObservableList<StrategyUI> getStrategyList(){
-        ObservableList<StrategyUI> strategyList = FXCollections.observableArrayList();
+    public ObservableList<Strategy> getStrategyList(){
+        ObservableList<Strategy> strategyList = FXCollections.observableArrayList();
         Connection connection = getConnection();
         String query = "SELECT * FROM strategy";
         Statement st;
@@ -133,9 +134,9 @@ public class DBFacade {
         try {
             st = connection.createStatement();
             rs = st.executeQuery(query);
-            StrategyUI strategies;
+            Strategy strategies;
             while(rs.next()) {
-                strategies = new StrategyUI(rs.getString("name"),rs.getString("description"),rs.getString("category"),rs.getInt("strategyID"));
+                strategies = new Strategy(rs.getInt("strategyID"),rs.getString("name"),rs.getString("description"),rs.getString("category"));
                 strategyList.add(strategies);
             }
         } catch (Exception e) {
@@ -162,5 +163,20 @@ public class DBFacade {
             e.printStackTrace();
         }
         return description;
+    }
+
+    public Strategy getLinkedStrategy(int strategyID) throws SQLException {
+        Connection connection = getConnection();
+        String query = "SELECT * FROM strategy where strategyID ="+strategyID;
+        Statement st;
+        ResultSet rs;
+        Strategy strategy = null;
+
+        st = connection.createStatement();
+        rs = st.executeQuery(query);
+        while (rs.next()) {
+            strategy = new Strategy(rs.getInt("StrategyID"), rs.getString("name"), rs.getString("category"), rs.getString("description"));
+        }
+        return strategy;
     }
 }

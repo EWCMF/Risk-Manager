@@ -1,5 +1,8 @@
 package logic;
 
+import domain.Risk;
+import domain.Strategy;
+
 import java.util.ArrayList;
 
 class RiskTable {
@@ -23,9 +26,5 @@ class RiskTable {
 
     public void deleteLastAdded() {
         risks.remove(risks.size() - 1);
-    }
-
-    public void linkStrategy(Risk risk, Strategy strategy) {
-        risk.linkStrategy(strategy);
     }
 }

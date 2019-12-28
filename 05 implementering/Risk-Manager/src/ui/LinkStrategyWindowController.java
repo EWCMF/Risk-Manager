@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Strategy;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,17 +23,17 @@ public class LinkStrategyWindowController {
     private Button linkStrategyButton;
 
     @FXML
-    private TableView<StrategyUI> strategyTable;
+    private TableView<Strategy> strategyTable;
     @FXML private TextArea description;
 
     public void initialize() {
         showStrategies();
         if (!StrategyWindowController.initialized) {
             for (int i = 0; i < strategyTable.getItems().size(); i++) {
-                RiskManagerController.initialStrategies(
-                        strategyTable.getItems().get(i).name,
-                        strategyTable.getItems().get(i).description,
-                        strategyTable.getItems().get(i).category);
+                RiskManagerController.initialStrategies(0,
+                        strategyTable.getItems().get(i).getName(),
+                        strategyTable.getItems().get(i).getDescription(),
+                        strategyTable.getItems().get(i).getCategory());
             }
             StrategyWindowController.initialized = true;
         }
@@ -44,7 +45,7 @@ public class LinkStrategyWindowController {
             try {
                 Stage stage = (Stage) linkStrategyButton.getScene().getWindow();
                 DBFacade dbFacade = new DBFacade();
-                dbFacade.linkStrategy(strategyTable.getSelectionModel().getSelectedItem().id, EditRiskWindowController.currentlyEditedDescription);
+                dbFacade.linkStrategy(strategyTable.getSelectionModel().getSelectedItem().getId(), EditRiskWindowController.currentlyEditedDescription);
                 stage.close();
             } catch (InputMismatchException e) {
                 System.out.println("Wrong input");
@@ -56,15 +57,15 @@ public class LinkStrategyWindowController {
 
     public void showStrategies() {
         DBFacade dbFacade = new DBFacade();
-        ObservableList<StrategyUI> risks = dbFacade.getStrategyList();
+        ObservableList<Strategy> strategies = dbFacade.getStrategyList();
 
-        strategyTable.setItems(risks);
+        strategyTable.setItems(strategies);
     }
 
     @FXML
     public void showDescription() {
         if (strategyTable.getSelectionModel().getSelectedItem() != null) {
-            description.setText(strategyTable.getSelectionModel().getSelectedItem().description);
+            description.setText(strategyTable.getSelectionModel().getSelectedItem().getDescription());
         }
     }
 }

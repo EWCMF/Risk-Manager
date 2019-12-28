@@ -1,5 +1,7 @@
 package logic;
 
+import domain.Strategy;
+
 import java.util.ArrayList;
 
 class StrategyTable {
@@ -19,8 +21,9 @@ class StrategyTable {
         strategies.remove(strategies.size() - 1);
     }
 
-    public void specifyRisk (Strategy strategy, String name, String description, String category){
-        strategy.specifyStrategy(name, description, category);
+    public void specifyStrategy (int id, String name, String description, String category){
+        Strategy strategy = new Strategy();
+        strategy.specifyStrategy(id, name, description, category);
     }
 
 

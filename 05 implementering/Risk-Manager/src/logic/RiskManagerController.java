@@ -1,5 +1,7 @@
 package logic;
 
+import domain.Risk;
+import domain.Strategy;
 import persistence.DBFacade;
 import ui.MainWindowController;
 import ui.StrategyWindowController;
@@ -14,9 +16,9 @@ public class RiskManagerController {
                 specifyRisk(getLastAddedRisk(), description, probability, consequence);
     }
 
-    public static void initialStrategies(String name, String description, String category) {
+    public static void initialStrategies(int id, String name, String description, String category) {
             createStrategy();
-            specifyStrategy(getLastAddedStrategy(), name, description, category);
+            specifyStrategy(id, name, description, category);
 
     }
 
@@ -34,12 +36,8 @@ public class RiskManagerController {
         StrategyWindowController.numStrategies++;
     }
 
-    public static void specifyStrategy(Strategy strategy, String name, String description, String category) {
-        st.specifyRisk(strategy, name, description, category);
-    }
-
-    public void linkStrategy(Risk risk, Strategy strategy) {
-        rt.linkStrategy(risk, strategy);
+    public static void specifyStrategy(int id, String name, String description, String category) {
+        st.specifyStrategy(id, name, description, category);
     }
 
     public static void deleteRisk(Risk risk) {
@@ -67,10 +65,10 @@ public class RiskManagerController {
     }
 
     public static void addRiskToDB(Risk risk) {
-        String description = risk.description;
-        Double probability = risk.probability;
-        Double consequence = risk.consequence;
-        Double exposure = risk.exposure;
+        String description = risk.getDescription();
+        Double probability = risk.getProbability();
+        Double consequence = risk.getConsequence();
+        Double exposure = risk.getExposure();
         Boolean strategy = false;
 
         DBFacade dbFacade = new DBFacade();
@@ -78,9 +76,9 @@ public class RiskManagerController {
     }
 
     public static void addStrategyToDB(Strategy strategy) {
-        String name = strategy.name;
-        String description = strategy.description;
-        String category = strategy.category;
+        String name = strategy.getName();
+        String description = strategy.getDescription();
+        String category = strategy.getCategory();
 
         DBFacade dbFacade = new DBFacade();
         dbFacade.insertStrategy(name, description, category);

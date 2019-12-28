@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Risk;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,7 @@ public class MainWindowController {
     private static boolean initialized;
     public static int numRisks;
 
-    @FXML private TableView<RiskUI> riskTable;
+    @FXML private TableView<Risk> riskTable;
     @FXML private TextArea strategyArea;
 
     @FXML
@@ -27,9 +28,9 @@ public class MainWindowController {
         if (!initialized) {
         for (int i = 0; i < riskTable.getItems().size(); i++) {
             RiskManagerController.initialRisks(
-                    riskTable.getItems().get(i).description,
-                    riskTable.getItems().get(i).probability,
-                    riskTable.getItems().get(i).consequence);
+                    riskTable.getItems().get(i).getDescription(),
+                    riskTable.getItems().get(i).getProbability(),
+                    riskTable.getItems().get(i).getConsequence());
             }
             initialized = true;
         }
@@ -53,10 +54,10 @@ public class MainWindowController {
     @FXML
     private void editRiskWindow() throws IOException {
         if (riskTable.getSelectionModel().getSelectedItem() != null) {
-            EditRiskWindowController.currentlyEditedDescription = riskTable.getSelectionModel().getSelectedItem().description;
-            EditRiskWindowController.newConsequence = riskTable.getSelectionModel().getSelectedItem().consequence;
-            EditRiskWindowController.newProbability = riskTable.getSelectionModel().getSelectedItem().probability;
-            EditRiskWindowController.newDescription = riskTable.getSelectionModel().getSelectedItem().description;
+            EditRiskWindowController.currentlyEditedDescription = riskTable.getSelectionModel().getSelectedItem().getDescription();
+            EditRiskWindowController.newConsequence = riskTable.getSelectionModel().getSelectedItem().getConsequence();
+            EditRiskWindowController.newProbability = riskTable.getSelectionModel().getSelectedItem().getProbability();
+            EditRiskWindowController.newDescription = riskTable.getSelectionModel().getSelectedItem().getDescription();
 
             Parent cRisk = FXMLLoader.load(getClass().getResource("editRiskWindow.fxml"));
             Scene scene = new Scene(cRisk);
@@ -71,7 +72,7 @@ public class MainWindowController {
 
     public void showRisks() {
             DBFacade dbFacade = new DBFacade();
-            ObservableList<RiskUI> risks = dbFacade.getRisksList();
+            ObservableList<Risk> risks = dbFacade.getRisksList();
 
             riskTable.setItems(risks);
     }
@@ -87,7 +88,7 @@ public class MainWindowController {
     public void deleteSelectedRisk() {
         if (riskTable.getSelectionModel().getSelectedItem() != null) {
             DBFacade dbFacade = new DBFacade();
-            dbFacade.deleteRisk(riskTable.getSelectionModel().getSelectedItem().description);
+            dbFacade.deleteRisk(riskTable.getSelectionModel().getSelectedItem().getDescription());
             showRisks();
             strategyArea.setText("");
         }
@@ -96,7 +97,7 @@ public class MainWindowController {
     public void showSelectedRiskStrategy() {
         if (riskTable.getSelectionModel().getSelectedItem() != null) {
             DBFacade dbFacade = new DBFacade();
-            strategyArea.setText(dbFacade.getSelectedRiskStrategy(riskTable.getSelectionModel().getSelectedItem().connectedStrategy));
+            strategyArea.setText(dbFacade.getSelectedRiskStrategy(riskTable.getSelectionModel().getSelectedItem().getStrategy().getId()));
         }
     }
 }

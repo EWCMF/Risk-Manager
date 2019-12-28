@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Strategy;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,17 +19,17 @@ public class StrategyWindowController {
     static boolean initialized;
     public static int numStrategies;
 
-    @FXML private TableView<StrategyUI> strategyTable;
+    @FXML private TableView<Strategy> strategyTable;
     @FXML private TextArea description;
 
     public void initialize() {
         showStrategies();
         if (!initialized) {
             for (int i = 0; i < strategyTable.getItems().size(); i++) {
-                RiskManagerController.initialStrategies(
-                        strategyTable.getItems().get(i).name,
-                        strategyTable.getItems().get(i).description,
-                        strategyTable.getItems().get(i).category);
+                RiskManagerController.initialStrategies(0,
+                        strategyTable.getItems().get(i).getName(),
+                        strategyTable.getItems().get(i).getDescription(),
+                        strategyTable.getItems().get(i).getCategory());
             }
             initialized = true;
         }
@@ -52,10 +53,10 @@ public class StrategyWindowController {
     @FXML
     private void editStrategyWindow() throws IOException {
         if (strategyTable.getSelectionModel().getSelectedItem() != null) {
-            EditStrategyWindowController.currentlyEditedName = strategyTable.getSelectionModel().getSelectedItem().name;
-            EditStrategyWindowController.newName = strategyTable.getSelectionModel().getSelectedItem().name;
-            EditStrategyWindowController.newCategory = strategyTable.getSelectionModel().getSelectedItem().category;
-            EditStrategyWindowController.newDescription = strategyTable.getSelectionModel().getSelectedItem().description;
+            EditStrategyWindowController.currentlyEditedName = strategyTable.getSelectionModel().getSelectedItem().getName();
+            EditStrategyWindowController.newName = strategyTable.getSelectionModel().getSelectedItem().getName();
+            EditStrategyWindowController.newCategory = strategyTable.getSelectionModel().getSelectedItem().getCategory();
+            EditStrategyWindowController.newDescription = strategyTable.getSelectionModel().getSelectedItem().getDescription();
 
             description.setText("");
             Parent cRisk = FXMLLoader.load(getClass().getResource("EditStrategyWindow.fxml"));
@@ -75,7 +76,7 @@ public class StrategyWindowController {
 
     public void showStrategies() {
         DBFacade dbFacade = new DBFacade();
-        ObservableList<StrategyUI> risks = dbFacade.getStrategyList();
+        ObservableList<Strategy> risks = dbFacade.getStrategyList();
 
         strategyTable.setItems(risks);
     }
@@ -91,7 +92,7 @@ public class StrategyWindowController {
     @FXML
     public void showDescription() {
         if (strategyTable.getSelectionModel().getSelectedItem() != null) {
-            description.setText(strategyTable.getSelectionModel().getSelectedItem().description);
+            description.setText(strategyTable.getSelectionModel().getSelectedItem().getDescription());
         }
     }
 
@@ -99,7 +100,7 @@ public class StrategyWindowController {
     public void deleteSelectedStrategy() {
         if (strategyTable.getSelectionModel().getSelectedItem() != null) {
             DBFacade dbFacade = new DBFacade();
-            dbFacade.deleteStrategy(strategyTable.getSelectionModel().getSelectedItem().name);
+            dbFacade.deleteStrategy(strategyTable.getSelectionModel().getSelectedItem().getName());
             showStrategies();
             description.setText("");
         }

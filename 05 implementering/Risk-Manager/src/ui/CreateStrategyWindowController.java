@@ -15,8 +15,7 @@ public class CreateStrategyWindowController {
 
     @FXML
     private void specifyStrategy() {
-            RiskManagerController.specifyStrategy(
-                    RiskManagerController.getLastAddedStrategy(),
+            RiskManagerController.specifyStrategy(0,
                     strategyName.getText(),
                     strategyDescription.getText(),
                     strategyCategory.getText());
