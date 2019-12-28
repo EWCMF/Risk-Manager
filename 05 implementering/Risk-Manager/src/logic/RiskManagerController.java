@@ -17,7 +17,9 @@ public class RiskManagerController {
     public void initialRisks() {
                 DBFacade dbFacade = new DBFacade();
                 rt.risks = dbFacade.getRisksList();
-                rt.lastID = rt.risks.get(rt.risks.size()-1).getId() + 1;
+                if (rt.risks.size() != 0) {
+                    rt.lastID = rt.risks.get(rt.risks.size() - 1).getId() + 1;
+                }
     }
 
     public void initialStrategies() {
@@ -42,10 +44,6 @@ public class RiskManagerController {
         st.specifyStrategy(id, name, description, category);
     }
 
-    public static void deleteRisk(Risk risk) {
-        rt.deleteRisk(risk);
-    }
-
     public static void deleteLastAddedRisk() {
         rt.deleteLastAdded();
     }
@@ -58,8 +56,29 @@ public class RiskManagerController {
         return rt.risks.get(rt.risks.size() - 1);
     }
 
-    public static Risk getCurrentRisk(int selected) {
-        return rt.risks.get(selected);
+    public static void deleteRiskByID(int id) {
+        Risk risk = null;
+        for (int i = 0; i < rt.risks.size(); i++) {
+            if (rt.risks.get(i).getId() == id); {
+                risk = rt.risks.get(i);
+            }
+        }
+        assert risk != null;
+        {
+            rt.deleteRisk(risk);
+            DBFacade dbFacade = new DBFacade();
+            dbFacade.deleteRisk(id);
+        }
+    }
+
+    public static Risk selectRiskByID(int id) {
+        Risk risk = null;
+        for (int i = 0; i < rt.risks.size(); i++) {
+            if (rt.risks.get(i).getId() == id) {
+                risk = rt.risks.get(i);
+            }
+        }
+        return risk;
     }
 
     public static Strategy getLastAddedStrategy() {

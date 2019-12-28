@@ -53,8 +53,8 @@ public class DBFacade {
         executeQuery(query);
     }
 
-    public void deleteRisk(String selected) {
-        String query = "DELETE FROM risk WHERE description like '"+selected+"'";
+    public void deleteRisk(int id) {
+        String query = "DELETE FROM risk WHERE id like '"+id+"'";
         executeQuery(query);
     }
 

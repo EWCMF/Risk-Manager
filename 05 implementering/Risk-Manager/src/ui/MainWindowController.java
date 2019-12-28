@@ -19,12 +19,16 @@ public class MainWindowController {
 
     @FXML private TableView<Risk> riskTable;
     @FXML private TextArea strategyArea;
+    private boolean initialized;
 
     @FXML
     public void initialize() {
-        RiskManagerController riskManagerController = new RiskManagerController();
-        riskManagerController.initialRisks();
-        riskManagerController.initialStrategies();
+        if (!initialized) {
+            RiskManagerController riskManagerController = new RiskManagerController();
+            riskManagerController.initialRisks();
+            riskManagerController.initialStrategies();
+            initialized = true;
+        }
         showRisks();
     }
 
@@ -80,7 +84,7 @@ public class MainWindowController {
     public void deleteSelectedRisk() {
         if (riskTable.getSelectionModel().getSelectedItem() != null) {
             DBFacade dbFacade = new DBFacade();
-            dbFacade.deleteRisk(riskTable.getSelectionModel().getSelectedItem().getDescription());
+            dbFacade.deleteRisk(riskTable.getSelectionModel().getSelectedItem().getId());
             showRisks();
             strategyArea.setText("");
         }

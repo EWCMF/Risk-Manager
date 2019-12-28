@@ -3,8 +3,6 @@ package logic;
 import domain.Risk;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-
 class RiskTable {
 
     ObservableList<Risk> risks;
