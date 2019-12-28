@@ -16,24 +16,16 @@ import persistence.DBFacade;
 import java.io.IOException;
 
 public class MainWindowController {
-    private static boolean initialized;
-    public static int numRisks;
 
     @FXML private TableView<Risk> riskTable;
     @FXML private TextArea strategyArea;
 
     @FXML
     public void initialize() {
+        RiskManagerController riskManagerController = new RiskManagerController();
+        riskManagerController.initialRisks();
+        riskManagerController.initialStrategies();
         showRisks();
-        if (!initialized) {
-        for (int i = 0; i < riskTable.getItems().size(); i++) {
-            RiskManagerController.initialRisks(
-                    riskTable.getItems().get(i).getDescription(),
-                    riskTable.getItems().get(i).getProbability(),
-                    riskTable.getItems().get(i).getConsequence());
-            }
-            initialized = true;
-        }
     }
 
     @FXML
@@ -72,7 +64,7 @@ public class MainWindowController {
 
     public void showRisks() {
             RiskManagerController riskManagerController = new RiskManagerController();
-            ObservableList<Risk> risks = riskManagerController.getRisks();
+            ObservableList<Risk> risks = riskManagerController.getRiskTable();
 
             riskTable.setItems(risks);
     }

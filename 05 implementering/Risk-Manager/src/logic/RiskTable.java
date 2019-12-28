@@ -2,12 +2,13 @@ package logic;
 
 import domain.Risk;
 import domain.Strategy;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
 class RiskTable {
 
-    ArrayList<Risk> risks = new ArrayList<>();
+    ObservableList<Risk> risks;
 
 
     public void createRisk() {

@@ -12,20 +12,18 @@ public class RiskManagerController {
     static RiskTable rt = new RiskTable();
     static StrategyTable st = new StrategyTable();
 
-    public static void initialRisks(String description, double probability, double consequence) {
-                createRisk();
-                specifyRisk(getLastAddedRisk(), description, probability, consequence);
+    public void initialRisks() {
+                DBFacade dbFacade = new DBFacade();
+                rt.risks = dbFacade.getRisksList();
     }
 
-    public static void initialStrategies(int id, String name, String description, String category) {
-            createStrategy();
-            specifyStrategy(id, name, description, category);
-
+    public void initialStrategies() {
+            DBFacade dbFacade = new DBFacade();
+            st.strategies = dbFacade.getStrategyList();
     }
 
     public static void createRisk() {
         rt.createRisk();
-        MainWindowController.numRisks++;
     }
 
     public static void specifyRisk(Risk risk, String description, double probability, double consequence) {
@@ -86,12 +84,20 @@ public class RiskManagerController {
 
     }
 
-    public ObservableList<Risk> getRisks() {
+    public ObservableList<Risk> getRiskTable() {
+        return rt.risks;
+    }
+
+    public ObservableList<Strategy> getStrategyTable() {
+        return st.strategies;
+    }
+
+    public ObservableList<Risk> getRisksDB() {
         DBFacade dbFacade = new DBFacade();
         return dbFacade.getRisksList();
     }
 
-    public ObservableList<Strategy> getStrategies() {
+    public ObservableList<Strategy> getStrategiesDB() {
         DBFacade dbFacade = new DBFacade();
 
         return dbFacade.getStrategyList();

@@ -28,15 +28,6 @@ public class LinkStrategyWindowController {
 
     public void initialize() {
         showStrategies();
-        if (!StrategyWindowController.initialized) {
-            for (int i = 0; i < strategyTable.getItems().size(); i++) {
-                RiskManagerController.initialStrategies(0,
-                        strategyTable.getItems().get(i).getName(),
-                        strategyTable.getItems().get(i).getDescription(),
-                        strategyTable.getItems().get(i).getCategory());
-            }
-            StrategyWindowController.initialized = true;
-        }
     }
 
     @FXML
@@ -56,8 +47,8 @@ public class LinkStrategyWindowController {
 
 
     public void showStrategies() {
-        DBFacade dbFacade = new DBFacade();
-        ObservableList<Strategy> strategies = dbFacade.getStrategyList();
+        RiskManagerController riskManagerController = new RiskManagerController();
+        ObservableList<Strategy> strategies = riskManagerController.getStrategyTable();
 
         strategyTable.setItems(strategies);
     }

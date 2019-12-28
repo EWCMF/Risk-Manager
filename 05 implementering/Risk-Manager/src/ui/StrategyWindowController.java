@@ -16,7 +16,6 @@ import persistence.DBFacade;
 import java.io.IOException;
 
 public class StrategyWindowController {
-    static boolean initialized;
     public static int numStrategies;
 
     @FXML private TableView<Strategy> strategyTable;
@@ -24,15 +23,6 @@ public class StrategyWindowController {
 
     public void initialize() {
         showStrategies();
-        if (!initialized) {
-            for (int i = 0; i < strategyTable.getItems().size(); i++) {
-                RiskManagerController.initialStrategies(0,
-                        strategyTable.getItems().get(i).getName(),
-                        strategyTable.getItems().get(i).getDescription(),
-                        strategyTable.getItems().get(i).getCategory());
-            }
-            initialized = true;
-        }
     }
 
     @FXML
@@ -76,7 +66,7 @@ public class StrategyWindowController {
 
     public void showStrategies() {
         RiskManagerController riskManagerController = new RiskManagerController();
-        ObservableList<Strategy> strategies = riskManagerController.getStrategies();
+        ObservableList<Strategy> strategies = riskManagerController.getStrategyTable();
 
         strategyTable.setItems(strategies);
     }

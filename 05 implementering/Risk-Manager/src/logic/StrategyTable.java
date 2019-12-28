@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 class StrategyTable {
 
-    ArrayList<Strategy> strategies = new ArrayList<>();
+    ObservableList<Strategy> strategies;
 
     void createStrategy() {
         Strategy strategy = new Strategy();
