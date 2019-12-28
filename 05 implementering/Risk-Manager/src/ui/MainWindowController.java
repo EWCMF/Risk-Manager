@@ -83,8 +83,7 @@ public class MainWindowController {
     @FXML
     public void deleteSelectedRisk() {
         if (riskTable.getSelectionModel().getSelectedItem() != null) {
-            DBFacade dbFacade = new DBFacade();
-            dbFacade.deleteRisk(riskTable.getSelectionModel().getSelectedItem().getId());
+            RiskManagerController.deleteRiskByID(riskTable.getSelectionModel().getSelectedItem().getId());
             showRisks();
             strategyArea.setText("");
         }
@@ -92,8 +91,7 @@ public class MainWindowController {
 
     public void showSelectedRiskStrategy() {
         if (riskTable.getSelectionModel().getSelectedItem() != null) {
-            DBFacade dbFacade = new DBFacade();
-            strategyArea.setText(dbFacade.getSelectedRiskStrategy(riskTable.getSelectionModel().getSelectedItem().getStrategy().getId()));
+            strategyArea.setText(riskTable.getSelectionModel().getSelectedItem().getStrategy().getDescription());
         }
     }
 }

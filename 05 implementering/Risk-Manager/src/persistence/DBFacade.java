@@ -14,14 +14,14 @@ public class DBFacade {
     public static boolean conneced = false;
     public static Statement stmt;
 
-    public static void initializeDB() throws SQLException {
+    public static void initializeDB() {
 
         String password = LoginWindowController.pass;
         String username = LoginWindowController.user;
 
         try {
         Connection connection = DriverManager.getConnection
-                ("jdbc:mysql://localhost/risk-manager?serverTimezone=UTC", username, password);
+                ("jdbc:mysql://localhost/risk-managerf?serverTimezone=UTC", username, password);
         System.out.println("Database connected.");
 
         conneced = true;
@@ -31,6 +31,18 @@ public class DBFacade {
             System.out.println("Kan ikke logge ind.");
         }
 
+    }
+
+    public Connection getConnection() {
+        Connection conn;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk-managerf?serverTimezone=UTC",LoginWindowController.user,LoginWindowController.pass);
+            return conn;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void linkStrategy(Integer strategyID, int id) {
@@ -63,8 +75,8 @@ public class DBFacade {
         executeQuery(query);
     }
 
-    public void insertRisk(String description, Double probability, Double consequence, Double exposure) {
-        String query = "insert into risk (description, probability, consequence, exposure) values ('"+description+"','"+probability+"','"+consequence+"','"+exposure+"')";
+    public void insertRisk(Integer id, String description, Double probability, Double consequence, Double exposure) {
+        String query = "insert into risk (id, description, probability, consequence, exposure) values ('"+id+"','"+description+"','"+probability+"','"+consequence+"','"+exposure+"')";
 
         executeQuery(query);
     }
@@ -83,18 +95,6 @@ public class DBFacade {
             st.executeUpdate(query);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public Connection getConnection() {
-        Connection conn;
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk-manager?serverTimezone=UTC",LoginWindowController.user,LoginWindowController.pass);
-            return conn;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return null;
         }
     }
 
@@ -141,7 +141,7 @@ public class DBFacade {
             rs = st.executeQuery(query);
             Strategy strategies;
             while(rs.next()) {
-                strategies = new Strategy(rs.getInt("strategyID"),rs.getString("name"),rs.getString("description"),rs.getString("category"));
+                strategies = new Strategy(rs.getInt("id"),rs.getString("name"),rs.getString("description"),rs.getString("category"));
                 strategyList.add(strategies);
             }
         } catch (Exception e) {
@@ -152,7 +152,7 @@ public class DBFacade {
 
     public String getSelectedRiskStrategy(Integer selected){
         Connection connection = getConnection();
-        String query = "SELECT description FROM strategy where strategyID ="+selected;
+        String query = "SELECT description FROM strategy where id ="+selected;
         Statement st;
         ResultSet rs;
         String description = "";
@@ -172,7 +172,7 @@ public class DBFacade {
 
     public Strategy getLinkedStrategy(int strategyID) throws SQLException {
         Connection connection = getConnection();
-        String query = "SELECT * FROM strategy where strategyID ="+strategyID;
+        String query = "SELECT * FROM strategy where id ="+strategyID;
         Statement st;
         ResultSet rs;
         Strategy strategy = null;
@@ -180,7 +180,7 @@ public class DBFacade {
         st = connection.createStatement();
         rs = st.executeQuery(query);
         while (rs.next()) {
-            strategy = new Strategy(rs.getInt("StrategyID"), rs.getString("name"), rs.getString("category"), rs.getString("description"));
+            strategy = new Strategy(rs.getInt("id"), rs.getString("name"), rs.getString("category"), rs.getString("description"));
         }
         return strategy;
     }

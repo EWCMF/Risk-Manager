@@ -13,11 +13,11 @@ public class Strategy {
         category = "";
     }
 
-    public Strategy(int id, String name, String description, String category) {
+    public Strategy(int id, String name, String category, String description) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.category = category;
+        this.description = description;
     }
 
     public void specifyStrategy(int id, String name, String description, String category) {

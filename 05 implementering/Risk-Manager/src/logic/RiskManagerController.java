@@ -86,13 +86,14 @@ public class RiskManagerController {
     }
 
     public static void addRiskToDB(Risk risk) {
+        Integer id = risk.getId();
         String description = risk.getDescription();
         Double probability = risk.getProbability();
         Double consequence = risk.getConsequence();
         Double exposure = risk.getExposure();
 
         DBFacade dbFacade = new DBFacade();
-        dbFacade.insertRisk(description, probability, consequence, exposure);
+        dbFacade.insertRisk(id, description, probability, consequence, exposure);
     }
 
     public static void addStrategyToDB(Strategy strategy) {

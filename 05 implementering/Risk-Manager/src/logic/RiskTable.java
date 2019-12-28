@@ -7,7 +7,7 @@ class RiskTable {
 
     ObservableList<Risk> risks;
 
-    int lastID;
+    int lastID = 1;
 
     public void createRisk() {
         Risk risk = new Risk(lastID);
