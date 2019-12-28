@@ -27,7 +27,7 @@ public class CreateRiskWindowController {
             Stage stage = (Stage) createRiskButton.getScene().getWindow();
             RiskManagerController.addRiskToDB(RiskManagerController.getLastAddedRisk());
             stage.close();
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Wrong input");
         }
     }

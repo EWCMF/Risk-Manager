@@ -4,13 +4,9 @@ import domain.Strategy;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.RiskManagerController;
 import persistence.DBFacade;
@@ -36,7 +32,7 @@ public class LinkStrategyWindowController {
             try {
                 Stage stage = (Stage) linkStrategyButton.getScene().getWindow();
                 DBFacade dbFacade = new DBFacade();
-                dbFacade.linkStrategy(strategyTable.getSelectionModel().getSelectedItem().getId(), EditRiskWindowController.currentlyEditedDescription);
+                dbFacade.linkStrategy(strategyTable.getSelectionModel().getSelectedItem().getId(), EditRiskWindowController.currentlyEditedID);
                 stage.close();
             } catch (InputMismatchException e) {
                 System.out.println("Wrong input");

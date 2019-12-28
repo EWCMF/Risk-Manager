@@ -46,7 +46,7 @@ public class MainWindowController {
     @FXML
     private void editRiskWindow() throws IOException {
         if (riskTable.getSelectionModel().getSelectedItem() != null) {
-            EditRiskWindowController.currentlyEditedDescription = riskTable.getSelectionModel().getSelectedItem().getDescription();
+            EditRiskWindowController.currentlyEditedID = riskTable.getSelectionModel().getSelectedItem().getId();
             EditRiskWindowController.newConsequence = riskTable.getSelectionModel().getSelectedItem().getConsequence();
             EditRiskWindowController.newProbability = riskTable.getSelectionModel().getSelectedItem().getProbability();
             EditRiskWindowController.newDescription = riskTable.getSelectionModel().getSelectedItem().getDescription();

@@ -1,7 +1,6 @@
 package logic;
 
 import domain.Risk;
-import domain.Strategy;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
@@ -10,10 +9,12 @@ class RiskTable {
 
     ObservableList<Risk> risks;
 
+    int lastID;
 
     public void createRisk() {
-        Risk risk = new Risk();
+        Risk risk = new Risk(lastID);
         risks.add(risk);
+        lastID++;
     }
 
     public void specifyRisk (Risk risk, String description, double probability, double consequence){
@@ -27,5 +28,6 @@ class RiskTable {
 
     public void deleteLastAdded() {
         risks.remove(risks.size() - 1);
+        lastID--;
     }
 }

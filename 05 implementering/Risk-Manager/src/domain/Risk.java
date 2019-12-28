@@ -8,8 +8,8 @@ public class Risk {
     private double exposure;
     private Strategy strategy = new Strategy();
 
-    public Risk() {
-        id = 0;
+    public Risk(int lastID) {
+        id = lastID;
         description = "";
         probability = 0.0;
         consequence = 0.0;

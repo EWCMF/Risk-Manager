@@ -33,16 +33,16 @@ public class DBFacade {
 
     }
 
-    public void linkStrategy(Integer strategyID, String last) {
-        String query = "UPDATE risk set strategy = '"+strategyID+"' where description = '"+last+"'";
+    public void linkStrategy(Integer strategyID, int id) {
+        String query = "UPDATE risk set strategy = '"+strategyID+"' where id = '"+id+"'";
         executeQuery(query);
     }
 
-    public void updateRisk(String description, Double probability, Double consequence, Double exposure, String last) {
+    public void updateRisk(String description, Double probability, Double consequence, Double exposure, int id) {
         String query = "UPDATE risk set description = '"+description+"', " +
                 "probability = '"+probability+"', " +
                 "consequence = '"+consequence+"', " +
-                "exposure = '"+exposure+"' where description = '"+last+"'";
+                "exposure = '"+exposure+"' where id = '"+id+"'";
         executeQuery(query);
     }
 
@@ -63,7 +63,7 @@ public class DBFacade {
         executeQuery(query);
     }
 
-    public void insertRisk(String description, Double probability, Double consequence, Double exposure, Boolean strategy) {
+    public void insertRisk(String description, Double probability, Double consequence, Double exposure) {
         String query = "insert into risk (description, probability, consequence, exposure) values ('"+description+"','"+probability+"','"+consequence+"','"+exposure+"')";
 
         executeQuery(query);

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 
 public class EditRiskWindowController {
-    static String currentlyEditedDescription;
+    static int currentlyEditedID;
     static String newDescription;
     static Double newProbability;
     static Double newConsequence;
@@ -41,7 +41,7 @@ public class EditRiskWindowController {
         try {
             Stage stage = (Stage) createRiskButton.getScene().getWindow();
             DBFacade dbFacade = new DBFacade();
-            dbFacade.updateRisk(d, p, c, p * c / 100, currentlyEditedDescription);
+            dbFacade.updateRisk(d, p, c, p * c / 100, currentlyEditedID);
             stage.close();
         } catch (InputMismatchException e) {
             System.out.println("Wrong input");

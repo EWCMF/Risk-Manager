@@ -12,9 +12,12 @@ public class RiskManagerController {
     static RiskTable rt = new RiskTable();
     static StrategyTable st = new StrategyTable();
 
+
+
     public void initialRisks() {
                 DBFacade dbFacade = new DBFacade();
                 rt.risks = dbFacade.getRisksList();
+                rt.lastID = rt.risks.get(rt.risks.size()-1).getId() + 1;
     }
 
     public void initialStrategies() {
@@ -68,10 +71,9 @@ public class RiskManagerController {
         Double probability = risk.getProbability();
         Double consequence = risk.getConsequence();
         Double exposure = risk.getExposure();
-        Boolean strategy = false;
 
         DBFacade dbFacade = new DBFacade();
-        dbFacade.insertRisk(description, probability, consequence, exposure, strategy);
+        dbFacade.insertRisk(description, probability, consequence, exposure);
     }
 
     public static void addStrategyToDB(Strategy strategy) {
