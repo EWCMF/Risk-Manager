@@ -4,8 +4,6 @@ import domain.Risk;
 import domain.Strategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import ui.*;
-
 import java.sql.*;
 
 

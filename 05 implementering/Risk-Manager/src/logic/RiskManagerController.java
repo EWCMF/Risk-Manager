@@ -12,8 +12,6 @@ public class RiskManagerController {
     static RiskTable rt = new RiskTable();
     static StrategyTable st = new StrategyTable();
 
-
-
     public void initialRisks() {
                 DBFacade dbFacade = new DBFacade();
                 rt.risks = dbFacade.getRisksList();
@@ -176,17 +174,6 @@ public class RiskManagerController {
 
     public ObservableList<Strategy> getStrategyTable() {
         return st.strategies;
-    }
-
-    public ObservableList<Risk> getRisksDB() {
-        DBFacade dbFacade = new DBFacade();
-        return dbFacade.getRisksList();
-    }
-
-    public ObservableList<Strategy> getStrategiesDB() {
-        DBFacade dbFacade = new DBFacade();
-
-        return dbFacade.getStrategyList();
     }
 }
 

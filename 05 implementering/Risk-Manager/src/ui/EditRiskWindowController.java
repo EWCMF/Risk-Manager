@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import logic.RiskManagerController;
 
 import java.io.IOException;
-import java.util.InputMismatchException;
 
 public class EditRiskWindowController {
     static int currentlyEditedID;

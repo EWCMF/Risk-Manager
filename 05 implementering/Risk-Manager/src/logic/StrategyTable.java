@@ -2,9 +2,6 @@ package logic;
 
 import domain.Strategy;
 import javafx.collections.ObservableList;
-import persistence.DBFacade;
-
-import java.util.ArrayList;
 
 class StrategyTable {
 
@@ -16,10 +13,6 @@ class StrategyTable {
         Strategy strategy = new Strategy(lastID);
         strategies.add(strategy);
         lastID++;
-    }
-
-    static Strategy linkStrategy(Strategy strategy) {
-        return null;
     }
 
     public void deleteLastAdded() {
