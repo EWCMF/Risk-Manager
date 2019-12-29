@@ -4,8 +4,6 @@ import domain.Risk;
 import domain.Strategy;
 import javafx.collections.ObservableList;
 import persistence.DBFacade;
-import ui.MainWindowController;
-import ui.StrategyWindowController;
 
 public class RiskManagerController {
 
