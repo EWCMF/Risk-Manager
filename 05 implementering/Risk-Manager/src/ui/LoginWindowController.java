@@ -32,6 +32,10 @@ public class LoginWindowController {
 
         if (DBFacade.conneced) {
             changeToMainWindow();
+        } else {
+            ErrorWindowController error = new ErrorWindowController();
+            error.owner = Main.window;
+            error.newError("Kan ikke logge ind.");
         }
     }
     public void handle(KeyEvent keyEvent) throws IOException {

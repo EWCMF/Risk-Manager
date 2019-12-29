@@ -1,10 +1,11 @@
 package ui;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import logic.RiskManagerController;
+
+import java.io.IOException;
 
 public class CreateRiskWindowController {
 
@@ -15,7 +16,7 @@ public class CreateRiskWindowController {
     @FXML private javafx.scene.control.TextArea riskConsequence;
 
     @FXML
-    private void specifyRiskWindow(ActionEvent event) {
+    private void specifyRiskWindow() throws IOException {
         try {
             RiskManagerController.specifyRisk(
                     RiskManagerController.getLastAddedRisk(),
@@ -26,7 +27,9 @@ public class CreateRiskWindowController {
             RiskManagerController.addRiskToDB(RiskManagerController.getLastAddedRisk());
             stage.close();
         } catch (NumberFormatException e) {
-            System.out.println("Wrong input");
+            ErrorWindowController error = new ErrorWindowController();
+            error.owner = (Stage) createRiskButton.getScene().getWindow();
+            error.newError("Sandsynlighed og konsekvens skal være mellem 0 og 100.");
         }
     }
 }

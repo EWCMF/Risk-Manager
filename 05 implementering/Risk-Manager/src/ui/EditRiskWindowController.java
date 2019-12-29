@@ -33,7 +33,7 @@ public class EditRiskWindowController {
     }
 
     @FXML
-    private void specifyRiskWindow(ActionEvent event) {
+    private void specifyRiskWindow() throws IOException {
         String d = riskDescription.getText();
         Double p = Double.parseDouble(riskProbability.getText());
         Double c = Double.parseDouble(riskConsequence.getText());
@@ -45,7 +45,9 @@ public class EditRiskWindowController {
             RiskManagerController.updateRiskDB(risk);
             stage.close();
         } catch (NumberFormatException e) {
-            System.out.println("Wrong input");
+            ErrorWindowController error = new ErrorWindowController();
+            error.owner = (Stage) createRiskButton.getScene().getWindow();
+            error.newError("Sandsynlighed og konsekvens skal være mellem 0 og 100.");
         }
     }
 

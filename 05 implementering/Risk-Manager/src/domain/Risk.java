@@ -30,7 +30,7 @@ public class Risk {
 
     public void specifyRisk(String description, double probability, double consequence) {
         if (probability < 0 || probability > 100 || consequence < 0 || consequence > 100) {
-            //Invalid risk
+            System.out.println("Ugyldig risiko værdier");
         }
         else {
             this.description = description;
