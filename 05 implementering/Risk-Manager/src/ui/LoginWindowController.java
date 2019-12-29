@@ -11,34 +11,30 @@ import javafx.scene.input.KeyEvent;
 import persistence.DBFacade;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class LoginWindowController {
-
-    public static String user;
-    public static String pass;
 
     @FXML
     private Button Confirm = new Button();
 
     @FXML
-    private PasswordField User = new PasswordField();
+    private PasswordField user = new PasswordField();
 
     @FXML
-    private PasswordField Pass = new PasswordField();
+    private PasswordField pass = new PasswordField();
 
     @FXML
-    private void saveUser() throws SQLException, IOException {
-        user = User.getText();
-        pass = Pass.getText();
+    private void saveUser() throws IOException {
+        String userInput = user.getText();
+        String passInput = pass.getText();
 
-        DBFacade.initializeDB();
+        DBFacade.initializeDB(userInput, passInput);
 
         if (DBFacade.conneced) {
             changeToMainWindow();
         }
     }
-    public void handle(KeyEvent keyEvent) throws SQLException, IOException {
+    public void handle(KeyEvent keyEvent) throws IOException {
         if(keyEvent.getCode() == KeyCode.ENTER)
         {
             saveUser();

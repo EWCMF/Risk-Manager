@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.RiskManagerController;
-import persistence.DBFacade;
 
 import java.io.IOException;
 import java.util.InputMismatchException;

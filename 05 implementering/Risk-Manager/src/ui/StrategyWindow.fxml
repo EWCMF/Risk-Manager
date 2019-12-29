@@ -49,8 +49,7 @@
             <Label layoutX="13.0" layoutY="13.0" prefHeight="18.0" prefWidth="86.0" text="Strategy" />
             <TextArea fx:id="description" layoutX="7.0" layoutY="207.0" prefHeight="261.0" prefWidth="700.0" />
             <Label layoutX="13.0" layoutY="182.0" prefHeight="18.0" prefWidth="86.0" text="Beskrivelse" />
-            <Button layoutX="619.0" layoutY="23.0" mnemonicParsing="false" onAction="#showStrategies" text="Update Table" />
-            <Button layoutX="569.0" layoutY="23.0" mnemonicParsing="false" onAction="#changeToMainWindow" text="Risks" />
+            <Button layoutX="663.0" layoutY="23.0" mnemonicParsing="false" onAction="#changeToMainWindow" text="Risks" />
          </children>
     </AnchorPane>
   </children>

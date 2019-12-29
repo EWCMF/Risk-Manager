@@ -10,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import logic.RiskManagerController;
-import persistence.DBFacade;
 
 import java.util.InputMismatchException;
 

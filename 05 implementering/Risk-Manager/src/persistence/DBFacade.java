@@ -13,18 +13,18 @@ public class DBFacade {
 
     public static boolean conneced = false;
     public static Statement stmt;
+    private static String validUsername;
+    private static String validPassword;
 
-    public static void initializeDB() {
-
-        String password = LoginWindowController.pass;
-        String username = LoginWindowController.user;
-
+    public static void initializeDB(String username, String password) {
         try {
         Connection connection = DriverManager.getConnection
                 ("jdbc:mysql://localhost/risk-managerf?serverTimezone=UTC", username, password);
         System.out.println("Database connected.");
 
         conneced = true;
+        validUsername = username;
+        validPassword = password;
         // Create a statement
         stmt = connection.createStatement();
         } catch (Exception e) {
@@ -36,12 +36,23 @@ public class DBFacade {
     public Connection getConnection() {
         Connection conn;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk-managerf?serverTimezone=UTC",LoginWindowController.user,LoginWindowController.pass);
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk-managerf?serverTimezone=UTC",validUsername,validPassword);
             return conn;
         }
         catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void executeQuery(String query) {
+        Connection conn = getConnection();
+        Statement st;
+        try {
+            st = conn.createStatement();
+            st.executeUpdate(query);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -90,17 +101,6 @@ public class DBFacade {
         String query = "insert into strategy (id, name, category, description) values ('"+id+"','"+name+"','"+category+"','"+description+"')";
 
         executeQuery(query);
-    }
-
-    public void executeQuery(String query) {
-        Connection conn = getConnection();
-        Statement st;
-        try {
-            st = conn.createStatement();
-            st.executeUpdate(query);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public ObservableList<Risk> getRisksList(){
@@ -153,26 +153,6 @@ public class DBFacade {
             e.printStackTrace();
         }
         return strategyList;
-    }
-
-    public String getSelectedRiskStrategy(Integer selected){
-        Connection connection = getConnection();
-        String query = "SELECT description FROM strategy where id ="+selected;
-        Statement st;
-        ResultSet rs;
-        String description = "";
-        try {
-            st = connection.createStatement();
-            rs = st.executeQuery(query);
-            while(rs.next()) {
-
-                description = rs.getString("description");
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return description;
     }
 
     public Strategy getLinkedStrategy(int strategyID) throws SQLException {

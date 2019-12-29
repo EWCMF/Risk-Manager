@@ -11,7 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.RiskManagerController;
-import persistence.DBFacade;
 
 import java.io.IOException;
 
@@ -44,6 +43,7 @@ public class MainWindowController {
         appStage.initModality(Modality.WINDOW_MODAL);
         appStage.show();
         appStage.setOnCloseRequest(we -> RiskManagerController.deleteLastAddedRisk());
+        appStage.setOnHidden(we -> showRisks());
         logic.RiskManagerController.createRisk();
     }
 
@@ -55,6 +55,9 @@ public class MainWindowController {
             EditRiskWindowController.newProbability = riskTable.getSelectionModel().getSelectedItem().getProbability();
             EditRiskWindowController.newDescription = riskTable.getSelectionModel().getSelectedItem().getDescription();
 
+            riskTable.getSelectionModel().clearSelection();
+            strategyArea.setText("");
+
             Parent cRisk = FXMLLoader.load(getClass().getResource("editRiskWindow.fxml"));
             Scene scene = new Scene(cRisk);
             Stage appStage = new Stage();
@@ -62,6 +65,7 @@ public class MainWindowController {
             appStage.setTitle("Edit Risk");
             appStage.initOwner(Main.window);
             appStage.initModality(Modality.WINDOW_MODAL);
+            appStage.setOnHidden(we -> showRisks());
             appStage.show();
         }
     }
@@ -95,7 +99,7 @@ public class MainWindowController {
             if (riskTable.getSelectionModel().getSelectedItem().getHasStrategy())
                 strategyArea.setText(riskTable.getSelectionModel().getSelectedItem().getStrategy().getDescription());
             else
-                strategyArea.setText("");
+                strategyArea.setText("Denne risiko har ingen strategi.");
         }
     }
 }

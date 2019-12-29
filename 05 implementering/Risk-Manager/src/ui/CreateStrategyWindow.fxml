@@ -14,7 +14,7 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextArea fx:id="strategyDescription" prefHeight="200.0" prefWidth="200.0" text="Skriv beskrivelse her" />
+                <TextArea fx:id="strategyDescription" onMouseClicked="#clearStartTextOnClick" prefHeight="200.0" prefWidth="200.0" text="Skriv beskrivelse her" />
             </children>
         </GridPane>
         <Label layoutX="15.0" layoutY="14.0" text="Strategy">

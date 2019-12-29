@@ -1,12 +1,12 @@
 package ui;
 
 import domain.Strategy;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import logic.RiskManagerController;
-import persistence.DBFacade;
 
 import java.util.InputMismatchException;
 
@@ -24,6 +24,7 @@ public class EditStrategyWindowController {
     @FXML private javafx.scene.control.TextField strategyCategory;
 
     public void initialize() {
+        Platform.runLater(() -> strategyName.requestFocus());
         strategyName.setText(newName);
         strategyCategory.setText(newCategory);
         strategyDescription.setText(newDescription);

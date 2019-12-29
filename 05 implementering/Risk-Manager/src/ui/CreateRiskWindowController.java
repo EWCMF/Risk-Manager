@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import logic.RiskManagerController;
 
-import java.util.InputMismatchException;
-
 public class CreateRiskWindowController {
 
     @FXML private Button createRiskButton;

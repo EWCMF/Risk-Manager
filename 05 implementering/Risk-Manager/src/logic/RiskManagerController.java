@@ -132,11 +132,11 @@ public class RiskManagerController {
     public static void addStrategyToDB(Strategy strategy) {
         int id = strategy.getId();
         String name = strategy.getName();
-        String description = strategy.getDescription();
         String category = strategy.getCategory();
+        String description = strategy.getDescription();
 
         DBFacade dbFacade = new DBFacade();
-        dbFacade.insertStrategy(id, name, description, category);
+        dbFacade.insertStrategy(id, name, category, description);
 
     }
 

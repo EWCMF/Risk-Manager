@@ -11,7 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.RiskManagerController;
-import persistence.DBFacade;
 
 import java.io.IOException;
 
@@ -36,6 +35,7 @@ public class StrategyWindowController {
         appStage.initModality(Modality.WINDOW_MODAL);
         appStage.show();
         appStage.setOnCloseRequest(we -> RiskManagerController.deleteLastAddedStrategy());
+        appStage.setOnHidden(we -> showStrategies());
         logic.RiskManagerController.createStrategy();
     }
 
@@ -48,6 +48,7 @@ public class StrategyWindowController {
             EditStrategyWindowController.newDescription = strategyTable.getSelectionModel().getSelectedItem().getDescription();
 
             description.setText("");
+            strategyTable.getSelectionModel().clearSelection();
             Parent cRisk = FXMLLoader.load(getClass().getResource("EditStrategyWindow.fxml"));
             Scene scene = new Scene(cRisk);
             Stage appStage = new Stage();
@@ -55,9 +56,8 @@ public class StrategyWindowController {
             appStage.setTitle("Edit Strategy");
             appStage.initOwner(Main.window);
             appStage.initModality(Modality.WINDOW_MODAL);
+            appStage.setOnHidden(we -> showStrategies());
             appStage.show();
-            appStage.setOnCloseRequest(we -> RiskManagerController.deleteLastAddedStrategy());
-            logic.RiskManagerController.createStrategy();
         }
     }
 
