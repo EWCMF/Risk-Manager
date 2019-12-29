@@ -9,7 +9,7 @@ import persistence.DBFacade;
 import java.util.InputMismatchException;
 
 public class EditStrategyWindowController {
-    static String currentlyEditedName;
+    static int currentlyEditedID;
     static String newName;
     static String newCategory;
     static String newDescription;
@@ -36,7 +36,7 @@ public class EditStrategyWindowController {
         try {
             Stage stage = (Stage) createStrategyButton.getScene().getWindow();
             DBFacade dbFacade = new DBFacade();
-            dbFacade.updateStrategy(n, c, d, currentlyEditedName);
+            dbFacade.updateStrategy(n, c, d, currentlyEditedID);
             stage.close();
         } catch (InputMismatchException e) {
             System.out.println("Wrong input");

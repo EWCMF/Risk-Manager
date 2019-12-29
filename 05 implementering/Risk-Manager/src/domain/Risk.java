@@ -7,7 +7,7 @@ public class Risk {
     private double consequence;
     private double exposure;
     private boolean hasStrategy;
-    private Strategy strategy = new Strategy();
+    private Strategy strategy;
 
     public Risk(int lastID) {
         id = lastID;

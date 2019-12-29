@@ -25,6 +25,9 @@ public class RiskManagerController {
     public void initialStrategies() {
             DBFacade dbFacade = new DBFacade();
             st.strategies = dbFacade.getStrategyList();
+            if (st.strategies.size() != 0) {
+                st.lastID = st.strategies.get(st.strategies.size() - 1).getId() + 1;
+            }
     }
 
     public static void createRisk() {
@@ -37,11 +40,10 @@ public class RiskManagerController {
 
     public static void createStrategy() {
         st.createStrategy();
-        StrategyWindowController.numStrategies++;
     }
 
-    public static void specifyStrategy(int id, String name, String description, String category) {
-        st.specifyStrategy(id, name, description, category);
+    public static void specifyStrategy(Strategy strategy, String name, String description, String category) {
+        st.specifyStrategy(strategy, name, description, category);
     }
 
     public static void deleteLastAddedRisk() {
@@ -85,6 +87,21 @@ public class RiskManagerController {
         return st.strategies.get(st.strategies.size() - 1);
     }
 
+    public static void deleteStrategyByID(int id) {
+        Strategy strategy = null;
+        for (int i = 0; i < st.strategies.size(); i++) {
+            if (st.strategies.get(i).getId() == id) {
+                strategy = st.strategies.get(i);
+            }
+        }
+        assert strategy != null;
+        {
+            st.deleteStrategy(strategy);
+            DBFacade dbFacade = new DBFacade();
+            dbFacade.deleteStrategy(id);
+        }
+    }
+
     public static void addRiskToDB(Risk risk) {
         Integer id = risk.getId();
         String description = risk.getDescription();
@@ -97,12 +114,13 @@ public class RiskManagerController {
     }
 
     public static void addStrategyToDB(Strategy strategy) {
+        int id = strategy.getId();
         String name = strategy.getName();
         String description = strategy.getDescription();
         String category = strategy.getCategory();
 
         DBFacade dbFacade = new DBFacade();
-        dbFacade.insertStrategy(name, description, category);
+        dbFacade.insertStrategy(id, name, description, category);
 
     }
 

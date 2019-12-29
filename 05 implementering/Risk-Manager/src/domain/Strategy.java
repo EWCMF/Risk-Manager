@@ -6,8 +6,8 @@ public class Strategy {
     private String description;
     private String category;
 
-    public Strategy() {
-        id = 0;
+    public Strategy(int lastID) {
+        id = lastID;
         name = "";
         description = "";
         category = "";
@@ -20,11 +20,10 @@ public class Strategy {
         this.description = description;
     }
 
-    public void specifyStrategy(int id, String name, String description, String category) {
-        this.id = id;
+    public void specifyStrategy(String name, String category, String description) {
         this.name = name;
-        this.description = description;
         this.category = category;
+        this.description = description;
     }
 
     public int getId() {

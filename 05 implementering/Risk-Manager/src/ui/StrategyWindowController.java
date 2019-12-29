@@ -16,7 +16,6 @@ import persistence.DBFacade;
 import java.io.IOException;
 
 public class StrategyWindowController {
-    public static int numStrategies;
 
     @FXML private TableView<Strategy> strategyTable;
     @FXML private TextArea description;
@@ -43,7 +42,7 @@ public class StrategyWindowController {
     @FXML
     private void editStrategyWindow() throws IOException {
         if (strategyTable.getSelectionModel().getSelectedItem() != null) {
-            EditStrategyWindowController.currentlyEditedName = strategyTable.getSelectionModel().getSelectedItem().getName();
+            EditStrategyWindowController.currentlyEditedID = strategyTable.getSelectionModel().getSelectedItem().getId();
             EditStrategyWindowController.newName = strategyTable.getSelectionModel().getSelectedItem().getName();
             EditStrategyWindowController.newCategory = strategyTable.getSelectionModel().getSelectedItem().getCategory();
             EditStrategyWindowController.newDescription = strategyTable.getSelectionModel().getSelectedItem().getDescription();
@@ -69,6 +68,7 @@ public class StrategyWindowController {
         ObservableList<Strategy> strategies = riskManagerController.getStrategyTable();
 
         strategyTable.setItems(strategies);
+        strategyTable.refresh();
     }
 
     @FXML
@@ -89,8 +89,7 @@ public class StrategyWindowController {
     @FXML
     public void deleteSelectedStrategy() {
         if (strategyTable.getSelectionModel().getSelectedItem() != null) {
-            DBFacade dbFacade = new DBFacade();
-            dbFacade.deleteStrategy(strategyTable.getSelectionModel().getSelectedItem().getName());
+            RiskManagerController.deleteStrategyByID(strategyTable.getSelectionModel().getSelectedItem().getId());
             showStrategies();
             description.setText("");
         }

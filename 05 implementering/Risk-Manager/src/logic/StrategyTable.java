@@ -10,9 +10,12 @@ class StrategyTable {
 
     ObservableList<Strategy> strategies;
 
+    int lastID = 1;
+
     void createStrategy() {
-        Strategy strategy = new Strategy();
+        Strategy strategy = new Strategy(lastID);
         strategies.add(strategy);
+        lastID++;
     }
 
     static Strategy linkStrategy(Strategy strategy) {
@@ -21,10 +24,14 @@ class StrategyTable {
 
     public void deleteLastAdded() {
         strategies.remove(strategies.size() - 1);
+        lastID--;
     }
 
-    public void specifyStrategy (int id, String name, String description, String category){
-        Strategy strategy = new Strategy();
-        strategy.specifyStrategy(id, name, description, category);
+    public void deleteStrategy(Strategy strategy) {
+        strategies.remove(strategy);
+    }
+
+    public void specifyStrategy (Strategy strategy, String name, String category, String description){
+        strategy.specifyStrategy(name, category, description);
     }
 }

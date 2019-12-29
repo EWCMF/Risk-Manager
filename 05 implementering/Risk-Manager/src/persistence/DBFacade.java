@@ -58,10 +58,10 @@ public class DBFacade {
         executeQuery(query);
     }
 
-    public void updateStrategy(String name, String category, String description, String last) {
+    public void updateStrategy(String name, String category, String description, int id) {
         String query = "UPDATE strategy set name = '"+name+"', " +
                 "category = '"+category+"', " +
-                "description = '"+description+"' where name = '"+last+"'";
+                "description = '"+description+"' where id = '"+id+"'";
         executeQuery(query);
     }
 
@@ -70,8 +70,8 @@ public class DBFacade {
         executeQuery(query);
     }
 
-    public void deleteStrategy(String selected) {
-        String query = "DELETE FROM strategy WHERE name like '"+selected+"'";
+    public void deleteStrategy(int id) {
+        String query = "DELETE FROM strategy WHERE id like '"+id+"'";
         executeQuery(query);
     }
 
@@ -81,8 +81,8 @@ public class DBFacade {
         executeQuery(query);
     }
 
-    public void insertStrategy(String name, String description, String category) {
-        String query = "insert into strategy (name, description, category, strategyID) values ('"+name+"','"+description+"','"+category+"','"+ StrategyWindowController.numStrategies+"')";
+    public void insertStrategy(int id, String name, String category, String description) {
+        String query = "insert into strategy (id, name, category, description) values ('"+id+"','"+name+"','"+category+"','"+description+"')";
 
         executeQuery(query);
     }
@@ -110,7 +110,7 @@ public class DBFacade {
             st = connection.createStatement();
             rs = st.executeQuery(query);
             Risk risks;
-            Strategy strategy = new Strategy();
+            Strategy strategy = null;
 
             while(rs.next()) {
                 if (rs.getInt("strategy") > 0) {
@@ -141,7 +141,7 @@ public class DBFacade {
             rs = st.executeQuery(query);
             Strategy strategies;
             while(rs.next()) {
-                strategies = new Strategy(rs.getInt("id"),rs.getString("name"),rs.getString("description"),rs.getString("category"));
+                strategies = new Strategy(rs.getInt("id"),rs.getString("name"),rs.getString("category"),rs.getString("description"));
                 strategyList.add(strategies);
             }
         } catch (Exception e) {

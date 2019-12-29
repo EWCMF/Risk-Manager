@@ -15,10 +15,10 @@ public class CreateStrategyWindowController {
 
     @FXML
     private void specifyStrategy() {
-            RiskManagerController.specifyStrategy(0,
+            RiskManagerController.specifyStrategy(RiskManagerController.getLastAddedStrategy(),
                     strategyName.getText(),
-                    strategyDescription.getText(),
-                    strategyCategory.getText());
+                    strategyCategory.getText(),
+                    strategyDescription.getText());
             RiskManagerController.addStrategyToDB(RiskManagerController.getLastAddedStrategy());
             Stage stage = (Stage) createStrategyButton.getScene().getWindow();
             stage.close();

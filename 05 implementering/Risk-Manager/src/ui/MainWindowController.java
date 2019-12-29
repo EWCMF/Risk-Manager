@@ -71,6 +71,7 @@ public class MainWindowController {
             ObservableList<Risk> risks = riskManagerController.getRiskTable();
 
             riskTable.setItems(risks);
+            riskTable.refresh();
     }
 
     public void changeToStrategyWindow() throws IOException {
@@ -91,7 +92,10 @@ public class MainWindowController {
 
     public void showSelectedRiskStrategy() {
         if (riskTable.getSelectionModel().getSelectedItem() != null) {
-            strategyArea.setText(riskTable.getSelectionModel().getSelectedItem().getStrategy().getDescription());
+            if (riskTable.getSelectionModel().getSelectedItem().getHasStrategy())
+                strategyArea.setText(riskTable.getSelectionModel().getSelectedItem().getStrategy().getDescription());
+            else
+                strategyArea.setText("");
         }
     }
 }
