@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Risk;
 import domain.Strategy;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,8 +32,10 @@ public class LinkStrategyWindowController {
         if (strategyTable.getSelectionModel().getSelectedItem() != null) {
             try {
                 Stage stage = (Stage) linkStrategyButton.getScene().getWindow();
-                DBFacade dbFacade = new DBFacade();
-                dbFacade.linkStrategy(strategyTable.getSelectionModel().getSelectedItem().getId(), EditRiskWindowController.currentlyEditedID);
+                Risk risk = RiskManagerController.selectRiskByID(EditRiskWindowController.currentlyEditedID);
+                Strategy strategy = strategyTable.getSelectionModel().getSelectedItem();
+                RiskManagerController.linkStrategy(risk, strategy);
+                RiskManagerController.linkStrategyDB(risk, strategy);
                 stage.close();
             } catch (InputMismatchException e) {
                 System.out.println("Wrong input");

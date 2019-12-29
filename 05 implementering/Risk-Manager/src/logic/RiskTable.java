@@ -1,6 +1,7 @@
 package logic;
 
 import domain.Risk;
+import domain.Strategy;
 import javafx.collections.ObservableList;
 
 class RiskTable {
@@ -27,5 +28,10 @@ class RiskTable {
     public void deleteLastAdded() {
         risks.remove(risks.size() - 1);
         lastID--;
+    }
+
+    public void linkStrategy(Risk risk, Strategy strategy) {
+        risk.setStrategy(strategy);
+        risk.setHasStrategy(true);
     }
 }

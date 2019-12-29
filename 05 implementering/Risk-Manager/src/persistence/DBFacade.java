@@ -50,6 +50,11 @@ public class DBFacade {
         executeQuery(query);
     }
 
+    public void removeLink(int id) {
+        String query = "UPDATE risk set strategy = null where id = '"+id+"'";
+        executeQuery(query);
+    }
+
     public void updateRisk(String description, Double probability, Double consequence, Double exposure, int id) {
         String query = "UPDATE risk set description = '"+description+"', " +
                 "probability = '"+probability+"', " +

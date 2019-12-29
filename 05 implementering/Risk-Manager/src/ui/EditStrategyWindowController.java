@@ -1,9 +1,11 @@
 package ui;
 
+import domain.Strategy;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import logic.RiskManagerController;
 import persistence.DBFacade;
 
 import java.util.InputMismatchException;
@@ -35,8 +37,9 @@ public class EditStrategyWindowController {
 
         try {
             Stage stage = (Stage) createStrategyButton.getScene().getWindow();
-            DBFacade dbFacade = new DBFacade();
-            dbFacade.updateStrategy(n, c, d, currentlyEditedID);
+            Strategy strategy = RiskManagerController.selectStrategyByID(currentlyEditedID);
+            RiskManagerController.specifyStrategy(strategy, n, c, d);
+            RiskManagerController.updateStrategyDB(strategy);
             stage.close();
         } catch (InputMismatchException e) {
             System.out.println("Wrong input");

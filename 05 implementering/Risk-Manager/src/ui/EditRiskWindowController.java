@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Risk;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import logic.RiskManagerController;
 import persistence.DBFacade;
 
 import java.io.IOException;
@@ -40,10 +42,11 @@ public class EditRiskWindowController {
 
         try {
             Stage stage = (Stage) createRiskButton.getScene().getWindow();
-            DBFacade dbFacade = new DBFacade();
-            dbFacade.updateRisk(d, p, c, p * c / 100, currentlyEditedID);
+            Risk risk = RiskManagerController.selectRiskByID(currentlyEditedID);
+            RiskManagerController.specifyRisk(risk, d, p, c);
+            RiskManagerController.updateRiskDB(risk);
             stage.close();
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Wrong input");
         }
     }
